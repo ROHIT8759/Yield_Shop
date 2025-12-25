@@ -18,6 +18,7 @@ YieldShop is a revolutionary DeFi platform that combines e-commerce with yield g
 ### 🎁 **Dual Shopping Options**
 
 #### Option A: Affiliate Cashback (Yield-Bearing)
+
 - Shop through affiliate links at Amazon, Flipkart, and more
 - **Earn 1% instant cashback** in stablecoins
 - Cashback generates **DeFi yield** for 30 days (return period)
@@ -25,18 +26,21 @@ YieldShop is a revolutionary DeFi platform that combines e-commerce with yield g
 - Get **1% SHOP tokens** as rewards
 
 #### Option B: Crypto Gift Cards (Instant)
+
 - Buy gift cards directly with **MNT** or **USDC**
 - Instant delivery of gift card codes
 - **2-5% SHOP token rewards** on every purchase
 - No waiting period - use immediately
 
 ### 🎫 **Coupon Marketplace**
+
 - List unused coupons for sale
 - Buy discounted coupons from other users
 - **2% platform fee** on transactions
 - Earn **1% SHOP tokens** on coupon purchases
 
 ### 💰 **Collateral-Based Lending**
+
 - Borrow stablecoins with **150% collateralization**
 - Interest rates as low as **1-5%** based on reputation
 - **On-chain reputation system** (0-5 levels)
@@ -44,12 +48,14 @@ YieldShop is a revolutionary DeFi platform that combines e-commerce with yield g
 - No credit checks required
 
 ### ⚡ **Flash Loans**
+
 - Uncollateralized loans for arbitrage
 - **0.09% fee** on loan amount
 - Must be repaid in same transaction
 - Perfect for DeFi strategies
 
 ### 🪙 **SHOP Token**
+
 - ERC20 reward token
 - **1 billion** max supply
 - Earn on every purchase
@@ -58,6 +64,7 @@ YieldShop is a revolutionary DeFi platform that combines e-commerce with yield g
 ## 🏗️ Tech Stack
 
 ### Frontend
+
 - **Next.js 15.1** - React framework with App Router
 - **TypeScript** - Type-safe development
 - **Wagmi 3.1** - React hooks for Web3
@@ -69,6 +76,7 @@ YieldShop is a revolutionary DeFi platform that combines e-commerce with yield g
 - **Motion 12.23** - Animations
 
 ### Backend & Blockchain
+
 - **Solidity 0.8.20** - Smart contracts
 - **OpenZeppelin** - Battle-tested contract libraries
 - **Hardhat** - Development environment
@@ -77,10 +85,12 @@ YieldShop is a revolutionary DeFi platform that combines e-commerce with yield g
   - Mainnet: Chain ID 5000
 
 ### Database & APIs
+
 - **Supabase** - PostgreSQL database & Auth
 - **ipapi.co** - Geolocation API
 
 ### Testing
+
 - **Jest** - JavaScript testing framework
 - **Hardhat Tests** - Contract testing
 - **52/52 tests passing** ✅
@@ -89,21 +99,21 @@ YieldShop is a revolutionary DeFi platform that combines e-commerce with yield g
 
 ### Deployed Contracts
 
-| Contract | Description | Functions |
-|----------|-------------|-----------|
-| **YieldShop** | Main platform contract | Purchase tracking, gift cards, coupons |
-| **ShopToken** | ERC20 reward token | Minting, burning, transfers |
-| **LendingSystem** | Collateral-based loans | Create, repay, liquidate loans |
-| **FlashLoanProvider** | Flash loan service | Execute flash loans |
+| Contract              | Description            | Functions                              |
+| --------------------- | ---------------------- | -------------------------------------- |
+| **YieldShop**         | Main platform contract | Purchase tracking, gift cards, coupons |
+| **ShopToken**         | ERC20 reward token     | Minting, burning, transfers            |
+| **LendingSystem**     | Collateral-based loans | Create, repay, liquidate loans         |
+| **FlashLoanProvider** | Flash loan service     | Execute flash loans                    |
 
 ### Contract Addresses (Update after deployment)
 
 ```typescript
 // Mantle Testnet (Chain ID: 5001)
-YIELDSHOP_CONTRACT: "0x..." // To be deployed
-SHOPTOKEN_CONTRACT: "0x..."  // To be deployed
-LENDING_CONTRACT: "0x..."    // To be deployed
-FLASHLOAN_CONTRACT: "0x..."  // To be deployed
+YIELDSHOP_CONTRACT: "0x..."; // To be deployed
+SHOPTOKEN_CONTRACT: "0x..."; // To be deployed
+LENDING_CONTRACT: "0x..."; // To be deployed
+FLASHLOAN_CONTRACT: "0x..."; // To be deployed
 ```
 
 ## 🚀 Quick Start
@@ -290,18 +300,22 @@ npx hardhat verify --network mantleTestnet <CONTRACT_ADDRESS> <CONSTRUCTOR_ARGS>
 ### Tables
 
 **wallet_connections**
+
 - Tracks wallet connections with IP/location
 - Connection count & timestamps
 
 **loan_transactions**
+
 - All loan records with status
 - Collateral & borrowed amounts
 
 **user_reputation**
+
 - On-chain reputation (0-5 levels)
 - Loan history & repayment rate
 
 **active_loans_summary** (View)
+
 - Real-time active loans overview
 
 See [schema/supabase_schema.sql](./schema/supabase_schema.sql) for full schema.
@@ -318,12 +332,14 @@ See [schema/supabase_schema.sql](./schema/supabase_schema.sql) for full schema.
 ## 🌐 Network Information
 
 ### Mantle Testnet
+
 - **Chain ID:** 5001
 - **RPC URL:** https://rpc.testnet.mantle.xyz
 - **Block Explorer:** https://explorer.testnet.mantle.xyz
 - **Faucet:** https://faucet.sepolia.mantle.xyz/
 
 ### Mantle Mainnet
+
 - **Chain ID:** 5000
 - **RPC URL:** https://rpc.mantle.xyz
 - **Block Explorer:** https://explorer.mantle.xyz
@@ -370,6 +386,7 @@ Built with ❤️ by [@ROHIT8759](https://github.com/ROHIT8759)
 ## 💬 Support
 
 For support, questions, or feedback:
+
 - Open an issue on GitHub
 - Contact: [Your Email/Discord]
 
