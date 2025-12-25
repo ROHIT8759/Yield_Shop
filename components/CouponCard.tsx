@@ -32,7 +32,8 @@ export default function CouponCard({ couponId, onBuy, isBuyPending }: CouponCard
     }
 
     // Destructure coupon data
-    const [id, seller, retailer, faceValue, sellingPrice, expiryDate, couponCodeHash, active, sold] = couponData as [
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [id, seller, retailer, faceValue, sellingPrice, expiryDate, _couponCodeHash, active, sold] = couponData as [
         bigint,
         string,
         string,

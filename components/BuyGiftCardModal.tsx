@@ -136,7 +136,7 @@ export default function BuyGiftCardModal({ isOpen, onClose }: BuyGiftCardModalPr
                         </div>
                         <h3 className="text-2xl font-bold text-white mb-2">Purchase Successful!</h3>
                         <p className="text-gray-400 mb-6">
-                            Your gift card has been purchased. You've earned {(parseFloat(amount) * 0.01).toFixed(2)} $SHOP tokens!
+                            Your gift card has been purchased. You&apos;ve earned {(parseFloat(amount) * 0.01).toFixed(2)} $SHOP tokens!
                         </p>
                         <button
                             onClick={() => {

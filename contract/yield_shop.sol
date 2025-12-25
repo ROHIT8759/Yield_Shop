@@ -115,7 +115,7 @@ contract YieldShop is Ownable, ReentrancyGuard, Pausable {
         address _mntToken,
         address _usdcToken,
         address _shopToken
-    ) {
+    ) Ownable(msg.sender) {
         require(_mntToken != address(0), "Invalid MNT token address");
         require(_usdcToken != address(0), "Invalid USDC token address");
         require(_shopToken != address(0), "Invalid SHOP token address");
@@ -565,7 +565,7 @@ contract ShopToken is ERC20, Ownable {
     uint256 public constant MAX_SUPPLY = 1_000_000_000 * 10**18; // 1 billion tokens
     address public yieldShopContract;
     
-    constructor() ERC20("YieldShop Token", "SHOP") {}
+    constructor() ERC20("YieldShop Token", "SHOP") Ownable(msg.sender) {}
     
     /**
      * @notice Set YieldShop contract address (can only be set once)
@@ -959,7 +959,6 @@ contract FlashLoanProvider is ReentrancyGuard, Pausable, Ownable {
         
         // Calculate fee (0.09%)
         uint256 fee = (amount * FLASH_LOAN_FEE) / 10000;
-        uint256 amountToRepay = amount + fee;
         
         // Get balance before
         uint256 balanceBefore = loanToken.balanceOf(address(this));

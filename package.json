@@ -2,11 +2,17 @@
   "name": "yield-shop",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest --coverage",
+    "test:contracts": "hardhat test",
+    "test:database": "jest test/database.test.ts",
+    "test:integration": "jest test/integration.test.ts",
+    "test:all": "npm run test:contracts && npm run test"
   },
   "dependencies": {
     "@metamask/sdk": "^0.34.0",
@@ -14,6 +20,7 @@
     "@supabase/supabase-js": "^2.89.0",
     "@tanstack/react-query": "^5.90.12",
     "axios": "^1.13.2",
+    "dotenv": "^17.2.3",
     "lucide-react": "^0.562.0",
     "motion": "^12.23.26",
     "next": "^15.1.0",
@@ -24,14 +31,24 @@
     "wagmi": "^3.1.0"
   },
   "devDependencies": {
+    "@jest/globals": "^30.2.0",
+    "@nomicfoundation/hardhat-ethers": "^3.1.3",
+    "@nomicfoundation/hardhat-toolbox": "^6.1.0",
+    "@types/chai": "^5.2.3",
+    "@types/jest": "^30.0.0",
     "@types/node": "^22.10.2",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.2",
     "autoprefixer": "^10.4.20",
+    "chai": "^6.2.2",
     "eslint": "^9.17.0",
     "eslint-config-next": "^15.1.0",
+    "ethers": "^6.16.0",
+    "hardhat": "^3.1.0",
+    "jest": "^30.2.0",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17",
+    "ts-jest": "^29.4.6",
     "typescript": "^5.7.2"
   }
 }

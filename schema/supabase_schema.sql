@@ -100,7 +100,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- Create a view for active loans summary
-CREATE OR REPLACE VIEW active_loans_summary AS
+CREATE OR REPLACE VIEW public.active_loans_summary WITH (security_invoker = on) AS
 SELECT 
     borrower_address,
     COUNT(*) as active_loan_count,

@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import ParticlesBackground from '../components/ParticlesBackground';
 import MouseEffect from '../components/MouseEffect';
 import FAQ from '../components/FAQ';
+import UserStats from '../components/UserStats';
 
 export default function Home() {
   return (
@@ -35,6 +36,7 @@ export default function Home() {
       <LandingNavbar />
       <main>
         <Hero />
+        <UserStats />
         <Features />
         <FAQ />
       </main>

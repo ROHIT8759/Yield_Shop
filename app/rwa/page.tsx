@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Navbar from '../../components/Navbar';
 import { useAccount, useReadContract } from 'wagmi';
 import { Building2, TrendingUp, FileText, DollarSign, Calendar, Shield, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
-import { RWA_CONTRACTS, RWA_FACTORY_ABI, RWA_TOKEN_ABI, KYC_REGISTRY_ABI, ASSET_TYPES } from '../../config/rwa-contracts';
+import { RWA_CONTRACTS, RWA_FACTORY_ABI, KYC_REGISTRY_ABI, ASSET_TYPES } from '../../config/rwa-contracts';
 
 interface RWAToken {
     address: string;
@@ -20,6 +20,7 @@ interface RWAToken {
 
 export default function RWAMarketplace() {
     const { address, isConnected } = useAccount();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [tokens, setTokens] = useState<RWAToken[]>([]);
     const [filter, setFilter] = useState<number | null>(null);
 
@@ -48,7 +49,7 @@ export default function RWAMarketplace() {
         }
     };
 
-    const filteredTokens = filter !== null 
+    const filteredTokens = filter !== null
         ? tokens.filter(t => t.assetType === filter)
         : tokens;
 
@@ -92,11 +93,10 @@ export default function RWAMarketplace() {
                 <div className="mb-8 flex flex-wrap gap-3">
                     <button
                         onClick={() => setFilter(null)}
-                        className={`px-6 py-2 rounded-lg font-semibold transition-all ${
-                            filter === null
+                        className={`px-6 py-2 rounded-lg font-semibold transition-all ${filter === null
                                 ? 'bg-sol-primary text-white'
                                 : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-                        }`}
+                            }`}
                     >
                         All Assets
                     </button>
@@ -104,11 +104,10 @@ export default function RWAMarketplace() {
                         <button
                             key={key}
                             onClick={() => setFilter(Number(key))}
-                            className={`px-6 py-2 rounded-lg font-semibold transition-all ${
-                                filter === Number(key)
+                            className={`px-6 py-2 rounded-lg font-semibold transition-all ${filter === Number(key)
                                     ? 'bg-sol-primary text-white'
                                     : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-                            }`}
+                                }`}
                         >
                             {value}
                         </button>

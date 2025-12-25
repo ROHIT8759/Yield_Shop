@@ -1,4 +1,4 @@
-import { ArrowRight, TrendingUp, ShoppingCart } from 'lucide-react';
+import { TrendingUp, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Hero() {

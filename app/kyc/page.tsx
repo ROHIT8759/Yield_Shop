@@ -20,7 +20,7 @@ export default function KYCPage() {
         abi: KYC_REGISTRY_ABI,
         functionName: 'kycData',
         args: address ? [address] : undefined,
-    });
+    }) as { data: readonly [bigint, bigint, bigint, string, bigint] | undefined; refetch: () => void };
 
     const handleSubmitKYC = async () => {
         if (!country) {
@@ -162,7 +162,7 @@ export default function KYCPage() {
 
                                     <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
                                         <p className="text-blue-400 text-sm mb-2 font-semibold">
-                                            What you'll need:
+                                            What you&apos;ll need:
                                         </p>
                                         <ul className="text-blue-400 text-sm space-y-1">
                                             <li>• Government-issued ID</li>

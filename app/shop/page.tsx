@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Search, ShoppingCart, ExternalLink, Tag, TrendingUp, Filter, Ticket, DollarSign, Clock } from 'lucide-react';
+import { Search, ShoppingCart, ExternalLink, Tag, TrendingUp, Filter, Ticket } from 'lucide-react';
 import { useAccount, useWriteContract, useWaitForTransactionReceipt, useReadContract } from 'wagmi';
-import { parseEther, formatEther } from 'viem';
+import { parseEther } from 'viem';
 import { YIELDSHOP_ABI, CONTRACTS } from '@/config/contracts';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -19,60 +19,6 @@ interface Product {
     cashbackRate: number;
     productUrl: string;
 }
-
-interface Coupon {
-    id: string;
-    retailer: 'Amazon' | 'Flipkart' | 'Target' | 'Walmart';
-    faceValue: number;
-    sellingPrice: number;
-    discount: number;
-    seller: string;
-    expiresIn: number; // days
-    verified: boolean;
-}
-
-const mockCoupons: Coupon[] = [
-    {
-        id: 'c1',
-        retailer: 'Amazon',
-        faceValue: 100,
-        sellingPrice: 95,
-        discount: 5,
-        seller: '0x1234...5678',
-        expiresIn: 45,
-        verified: true
-    },
-    {
-        id: 'c2',
-        retailer: 'Walmart',
-        faceValue: 50,
-        sellingPrice: 47,
-        discount: 6,
-        seller: '0xabcd...ef90',
-        expiresIn: 30,
-        verified: true
-    },
-    {
-        id: 'c3',
-        retailer: 'Target',
-        faceValue: 75,
-        sellingPrice: 70,
-        discount: 6.7,
-        seller: '0x9876...4321',
-        expiresIn: 60,
-        verified: true
-    },
-    {
-        id: 'c4',
-        retailer: 'Flipkart',
-        faceValue: 200,
-        sellingPrice: 188,
-        discount: 6,
-        seller: '0xdef0...1234',
-        expiresIn: 25,
-        verified: true
-    },
-];
 
 const mockProducts: Product[] = [
     {
@@ -198,7 +144,7 @@ export default function ShopPage() {
         isPending: isListPending
     } = useWriteContract();
 
-    const { isLoading: isListConfirming, isSuccess: isListSuccess } = useWaitForTransactionReceipt({
+    const { isSuccess: isListSuccess } = useWaitForTransactionReceipt({
         hash: listHash,
     });
 
@@ -209,7 +155,7 @@ export default function ShopPage() {
         isPending: isBuyPending
     } = useWriteContract();
 
-    const { isLoading: isBuyConfirming, isSuccess: isBuySuccess } = useWaitForTransactionReceipt({
+    const { isSuccess: isBuySuccess } = useWaitForTransactionReceipt({
         hash: buyHash,
     });
 
@@ -700,7 +646,7 @@ export default function ShopPage() {
                                 </div>
 
                                 <p className="text-xs text-gray-500 mt-4 text-center">
-                                    You'll be redirected to {selectedProduct.retailer} to complete your purchase.
+                                    You&apos;ll be redirected to {selectedProduct.retailer} to complete your purchase.
                                     Make sure to complete the transaction to earn your cashback!
                                 </p>
                             </>

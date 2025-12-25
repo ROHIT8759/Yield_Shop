@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { TrendingUp, TrendingDown, DollarSign, RefreshCw, Activity } from 'lucide-react';
+import { TrendingUp, TrendingDown, RefreshCw, Activity } from 'lucide-react';
 import { useAccount } from 'wagmi';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -22,12 +22,17 @@ interface CryptoData {
   low_24h: number;
 }
 
+interface ChartDataPoint {
+  index: number;
+  price: number;
+}
+
 export default function TradingPage() {
-  const { address, isConnected } = useAccount();
+  const { isConnected } = useAccount();
   const [cryptos, setCryptos] = useState<CryptoData[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedCrypto, setSelectedCrypto] = useState<CryptoData | null>(null);
-  const [chartData, setChartData] = useState<any[]>([]);
+  const [chartData, setChartData] = useState<ChartDataPoint[]>([]);
 
   // Fetch top crypto prices from CoinGecko
   const fetchCryptoData = async () => {

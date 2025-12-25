@@ -126,7 +126,8 @@ export default function BridgePage() {
         // Check if user is on the correct source chain
         if (currentChain?.id !== fromChain.id) {
             try {
-                await switchChain({ chainId: fromChain.id });
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                await switchChain({ chainId: fromChain.id as any });
             } catch (error) {
                 console.error('Failed to switch chain:', error);
                 return;
@@ -200,7 +201,7 @@ export default function BridgePage() {
                             )}
                             <button
                                 onClick={() => {
-                                    setBridgeTxHash(null);
+                                    setBridgeTxHash(undefined);
                                     setAmount('');
                                 }}
                                 className="bg-sol-primary hover:bg-sol-primary/80 text-white px-8 py-3 rounded-lg font-semibold transition-colors"

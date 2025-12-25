@@ -13,7 +13,7 @@ export default function Features() {
                         Two Ways to Earn on Mantle
                     </p>
                     <p className="mt-4 max-w-2xl text-xl text-gray-400 lg:mx-auto font-light">
-                        Choose how you want to shop and earn. Whether it's cashback that grows or direct crypto payments, we've got you covered.
+                        Choose how you want to shop and earn. Whether it&apos;s cashback that grows or direct crypto payments, we&apos;ve got you covered.
                     </p>
                 </div>
 
@@ -30,7 +30,7 @@ export default function Features() {
                                 <ul className="space-y-3">
                                     <li className="flex items-start gap-2">
                                         <span className="text-sol-primary mt-1">•</span>
-                                        <span>Shop at your favorite stores like Amazon & Flipkart.</span>
+                                        <span>Shop at your favorite stores like Amazon &amp; Flipkart.</span>
                                     </li>
                                     <li className="flex items-start gap-2">
                                         <span className="text-sol-primary mt-1">•</span>
@@ -77,7 +77,7 @@ export default function Features() {
                                 <p className="text-xl leading-6 font-bold text-white mb-4">Powered by Mantle</p>
                             </dt>
                             <dd className="text-base text-gray-400 leading-relaxed">
-                                Leveraging Mantle's low gas fees to process micro-rewards efficiently. No more waiting for high thresholds to cash out.
+                                Leveraging Mantle&apos;s low gas fees to process micro-rewards efficiently. No more waiting for high thresholds to cash out.
                             </dd>
                         </div>
 
@@ -89,7 +89,7 @@ export default function Features() {
                                 <p className="text-xl leading-6 font-bold text-white mb-4">DeFi Integration</p>
                             </dt>
                             <dd className="text-base text-gray-400 leading-relaxed">
-                                Your pending funds work for you. We integrate with protocols like Lendle and mETH to generate yield on "sleeping" money.
+                                Your pending funds work for you. We integrate with protocols like Lendle and mETH to generate yield on &quot;sleeping&quot; money.
                             </dd>
                         </div>
                     </dl>

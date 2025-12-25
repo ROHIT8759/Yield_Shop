@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { TrendingUp, Shield, Clock, DollarSign, Star, CheckCircle, Loader2, AlertTriangle, Trophy, Zap, Droplet } from 'lucide-react';
+import { Shield, DollarSign, Star, CheckCircle, Loader2, AlertTriangle, Trophy, Zap, Droplet } from 'lucide-react';
 import { useAccount, useWriteContract, useWaitForTransactionReceipt, useReadContract } from 'wagmi';
 import { parseEther, formatEther } from 'viem';
 import Navbar from '@/components/Navbar';
@@ -73,6 +73,25 @@ export default function LoansPage() {
 
     // Load user data from Supabase
     useEffect(() => {
+        const loadUserData = async () => {
+            if (!address) return;
+
+            setLoading(true);
+            try {
+                const [loans, rep] = await Promise.all([
+                    getUserLoans(address),
+                    getUserReputation(address)
+                ]);
+
+                setUserLoansData(loans || []);
+                setReputation(rep);
+            } catch (error) {
+                console.error('Error loading user data:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
         if (address) {
             loadUserData();
         }
@@ -92,25 +111,6 @@ export default function LoansPage() {
             }).catch(console.error);
         }
     }, [address, onChainReputation]);
-
-    const loadUserData = async () => {
-        if (!address) return;
-
-        setLoading(true);
-        try {
-            const [loans, rep] = await Promise.all([
-                getUserLoans(address),
-                getUserReputation(address)
-            ]);
-
-            setUserLoansData(loans || []);
-            setReputation(rep);
-        } catch (error) {
-            console.error('Error loading user data:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
 
     const handleCreateLoan = async () => {
         if (!address || !collateralAmount || !borrowAmount) return;
@@ -264,11 +264,11 @@ export default function LoansPage() {
                                 {/* Reputation Score Circle */}
                                 <div className="relative inline-block">
                                     <div className={`w-32 h-32 rounded-full border-8 ${reputation?.level === 5 ? 'border-yellow-400 bg-yellow-500/10' :
-                                            reputation?.level === 4 ? 'border-purple-400 bg-purple-500/10' :
-                                                reputation?.level === 3 ? 'border-green-400 bg-green-500/10' :
-                                                    reputation?.level === 2 ? 'border-blue-400 bg-blue-500/10' :
-                                                        reputation?.level === 1 ? 'border-orange-400 bg-orange-500/10' :
-                                                            'border-gray-600 bg-gray-600/10'
+                                        reputation?.level === 4 ? 'border-purple-400 bg-purple-500/10' :
+                                            reputation?.level === 3 ? 'border-green-400 bg-green-500/10' :
+                                                reputation?.level === 2 ? 'border-blue-400 bg-blue-500/10' :
+                                                    reputation?.level === 1 ? 'border-orange-400 bg-orange-500/10' :
+                                                        'border-gray-600 bg-gray-600/10'
                                         } flex items-center justify-center`}>
                                         <div className="text-center">
                                             <div className={`text-4xl font-black ${getReputationColor(reputation?.level || 0)}`}>
@@ -829,7 +829,7 @@ export default function LoansPage() {
                         ) : (
                             <div className="text-center py-12">
                                 <DollarSign className="h-16 w-16 text-gray-600 mx-auto mb-4" />
-                                <p className="text-gray-400">You don't have any loans yet.</p>
+                                <p className="text-gray-400">You don&apos;t have any loans yet.</p>
                             </div>
                         )}
                     </div>

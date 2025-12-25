@@ -18,7 +18,7 @@ export default function Footer() {
                             Decentralized shopping with DeFi yield. Shop, earn, and trade on Mantle Network with cashback rewards and on-chain reputation.
                         </p>
                         <p className="text-gray-500 text-xs italic">
-                            "Shop smart, earn yield, build reputation."
+                            &quot;Shop smart, earn yield, build reputation.&quot;
                         </p>
 
                         {/* Social Icons */}

@@ -32,6 +32,20 @@ export interface ReputationData {
     created_at?: string;
 }
 
+export interface WalletConnection {
+    id?: string;
+    wallet_address: string;
+    ip_address?: string;
+    country?: string;
+    city?: string;
+    region?: string;
+    timezone?: string;
+    user_agent?: string;
+    first_connected_at?: string;
+    last_connected_at?: string;
+    connection_count?: number;
+}
+
 export async function saveLoanTransaction(transaction: LoanTransaction) {
     const { data, error } = await supabase
         .from('loan_transactions')
@@ -81,8 +95,8 @@ export async function saveReputationData(reputation: ReputationData) {
         .from('user_reputation')
         .upsert([
             {
-                user_address: reputation.user_address.toLowerCase(),
-                ...reputation
+                ...reputation,
+                user_address: reputation.user_address.toLowerCase()
             }
         ], { onConflict: 'user_address' })
         .select();
@@ -108,4 +122,113 @@ export async function getUserReputation(userAddress: string) {
     }
     
     return data;
+}
+
+/**
+ * Save or update wallet connection data
+ */
+export async function saveWalletConnection(connectionData: WalletConnection) {
+    const walletAddress = connectionData.wallet_address.toLowerCase();
+    
+    // Check if wallet already exists
+    const { data: existing } = await supabase
+        .from('wallet_connections')
+        .select('*')
+        .eq('wallet_address', walletAddress)
+        .single();
+    
+    if (existing) {
+        // Update existing record
+        const { data, error } = await supabase
+            .from('wallet_connections')
+            .update({
+                ip_address: connectionData.ip_address,
+                country: connectionData.country,
+                city: connectionData.city,
+                region: connectionData.region,
+                timezone: connectionData.timezone,
+                user_agent: connectionData.user_agent,
+                last_connected_at: new Date().toISOString(),
+                connection_count: (existing.connection_count || 0) + 1
+            })
+            .eq('wallet_address', walletAddress)
+            .select();
+        
+        if (error) {
+            console.error('Error updating wallet connection:', error);
+            throw error;
+        }
+        
+        return data;
+    } else {
+        // Insert new record
+        const { data, error } = await supabase
+            .from('wallet_connections')
+            .insert([{
+                wallet_address: walletAddress,
+                ip_address: connectionData.ip_address,
+                country: connectionData.country,
+                city: connectionData.city,
+                region: connectionData.region,
+                timezone: connectionData.timezone,
+                user_agent: connectionData.user_agent,
+                first_connected_at: new Date().toISOString(),
+                last_connected_at: new Date().toISOString(),
+                connection_count: 1
+            }])
+            .select();
+        
+        if (error) {
+            console.error('Error saving wallet connection:', error);
+            throw error;
+        }
+        
+        return data;
+    }
+}
+
+/**
+ * Get wallet connection history
+ */
+export async function getWalletConnection(walletAddress: string) {
+    const { data, error } = await supabase
+        .from('wallet_connections')
+        .select('*')
+        .eq('wallet_address', walletAddress.toLowerCase())
+        .single();
+    
+    if (error && error.code !== 'PGRST116') {
+        console.error('Error fetching wallet connection:', error);
+        throw error;
+    }
+    
+    return data;
+}
+
+/**
+ * Get location data from IP using free API
+ */
+export async function getLocationFromIP(): Promise<{
+    ip: string;
+    country: string;
+    city: string;
+    region: string;
+    timezone: string;
+} | null> {
+    try {
+        const response = await fetch('https://ipapi.co/json/');
+        if (!response.ok) return null;
+        
+        const data = await response.json();
+        return {
+            ip: data.ip || '',
+            country: data.country_name || '',
+            city: data.city || '',
+            region: data.region || '',
+            timezone: data.timezone || ''
+        };
+    } catch (error) {
+        console.error('Error fetching location:', error);
+        return null;
+    }
 }

@@ -21,7 +21,7 @@ export default function BackgroundMusic() {
                     await audioRef.current.play();
                     setIsPlaying(true);
                 }
-            } catch (err) {
+            } catch {
                 console.log('Autoplay blocked, waiting for user interaction');
             }
         };

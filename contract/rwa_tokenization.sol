@@ -178,7 +178,7 @@ contract RWAToken is ERC20, AccessControl, Pausable {
     /**
      * @notice Override transfer to include compliance checks
      */
-    function _beforeTokenTransfer(
+    function _update(
         address from,
         address to,
         uint256 amount
@@ -190,7 +190,7 @@ contract RWAToken is ERC20, AccessControl, Pausable {
                 require(whitelist[to], "Recipient not whitelisted");
             }
         }
-        super._beforeTokenTransfer(from, to, amount);
+        super._update(from, to, amount);
     }
     
     /**
