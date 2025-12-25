@@ -1,9 +1,15 @@
 <div align="center">
-  <img src="/public/banner.svg" alt="YieldShop Banner">
+  <img src="./public/banner.svg" alt="YieldShop Banner" width="100%">
   <br/>
-  <img src="/public/logo.svg" alt="YieldShop Logo" width="150">
+  <br/>
+  <img src="./public/logo.svg" alt="YieldShop Logo" width="150">
   <h1>YieldShop</h1>
-  <p>Shop, earn rewards, and generate DeFi yield - all on Mantle Network</p>
+  <p>
+    <b>Shop, earn rewards, and generate DeFi yield - all on Mantle Network</b>
+  </p>
+  <p>
+    <i>Decentralized Yield Farming & Flash Loans on Mantle L2</i>
+  </p>
 </div>
 
 [![Next.js](https://img.shields.io/badge/Next.js-15.1-black?logo=next.js)](https://nextjs.org/)

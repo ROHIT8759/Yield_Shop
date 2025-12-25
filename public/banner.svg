@@ -1,14 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="200" viewBox="0 0 800 200">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#4A90E2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#50E3C2;stop-opacity:1" />
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="0.5" opacity="0.05"/>
+    </pattern>
+  </defs>
+
   <!-- Background -->
-  <rect width="800" height="200" fill="#1a1a1a"/>
+  <rect width="1200" height="400" fill="url(#bgGrad)"/>
+  <rect width="1200" height="400" fill="url(#grid)"/>
 
-  <!-- Title -->
-  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Arial, sans-serif" font-size="60" fill="#00ff99" font-weight="bold">
-    YieldShop
+  <!-- Logo Icon (Simplified Hexagon) -->
+  <g transform="translate(100, 100) scale(0.4)">
+     <path d="M256 20 L480 130 L480 382 L256 492 L32 382 L32 130 Z" fill="url(#textGrad)"/>
+     <path d="M160 150 L256 280 L352 150" stroke="white" stroke-width="40" stroke-linecap="round" fill="none"/>
+     <line x1="256" y1="280" x2="256" y2="400" stroke="white" stroke-width="40" stroke-linecap="round"/>
+  </g>
+
+  <!-- Text -->
+  <text x="350" y="200" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="100" font-weight="bold" fill="white">
+    Yield<tspan fill="url(#textGrad)">Shop</tspan>
   </text>
-
-  <!-- Subtitle -->
-  <text x="50%" y="75%" dominant-baseline="middle" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#ffffff">
-    Decentralized Yield Farming & Flash Loans on Mantle
+  
+  <text x="355" y="260" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="30" fill="#a0a0a0" letter-spacing="2">
+    DEFI YIELD FARMING & FLASH LOANS
   </text>
 </svg>
