@@ -1,4 +1,6 @@
 <div align="center">
+  <img src="/public/banner.svg" alt="YieldShop Banner">
+  <br/>
   <img src="/public/logo.svg" alt="YieldShop Logo" width="150">
   <h1>YieldShop</h1>
   <p>Shop, earn rewards, and generate DeFi yield - all on Mantle Network</p>

@@ -1,0 +1,15 @@
+<svg width="1280" height="320" viewBox="0 0 1280 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1280" height="320" fill="url(#paint0_linear_2_2)"/>
+<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Arial, sans-serif" font-size="96" fill="white" font-weight="bold">
+  YieldShop
+</text>
+<text x="50%" y="70%" dominant-baseline="middle" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" fill="white" opacity="0.8">
+  Shop & Earn DeFi Yield on Mantle
+</text>
+<defs>
+<linearGradient id="paint0_linear_2_2" x1="0" y1="0" x2="1280" y2="320" gradientUnits="userSpaceOnUse">
+<stop stop-color="#4A90E2"/>
+<stop offset="1" stop-color="#50E3C2"/>
+</linearGradient>
+</defs>
+</svg>
