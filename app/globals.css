@@ -61,7 +61,7 @@ body {
   box-shadow: 0 0 25px rgba(138, 43, 226, 0.6);
 }
 
-/* RainbowKit Connect Button Styling */
+/* Custom Wallet Connect Button Styling */
 button[data-testid="rk-connect-button"],
 div[data-testid="rk-account-button"] {
   background: rgba(138, 43, 226, 0.2) !important;

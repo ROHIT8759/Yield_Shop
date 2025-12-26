@@ -75,9 +75,8 @@ YieldShop is a revolutionary DeFi platform that combines e-commerce with yield g
 
 - **Next.js 15.1** - React framework with App Router
 - **TypeScript** - Type-safe development
-- **Wagmi 3.1** - React hooks for Web3
+- **Wagmi 2.12** - React hooks for Web3
 - **Viem 2.43** - TypeScript Ethereum library
-- **RainbowKit 2.2** - Beautiful wallet connection UI
 - **TanStack Query 5.90** - Data fetching & caching
 - **Recharts 3.6** - Data visualization
 - **Lucide React** - Icon library
