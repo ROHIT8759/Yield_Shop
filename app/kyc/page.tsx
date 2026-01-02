@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar';
 import { useAccount, useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 import { Shield, CheckCircle, XCircle, Clock, AlertCircle } from 'lucide-react';
@@ -8,8 +8,14 @@ import { RWA_CONTRACTS, KYC_REGISTRY_ABI, KYC_STATUS, KYC_TIERS } from '../../co
 
 export default function KYCPage() {
     const { address, isConnected } = useAccount();
+    const [mounted, setMounted] = useState(false);
     const [country, setCountry] = useState('');
     const [showSuccess, setShowSuccess] = useState(false);
+
+    // Prevent hydration mismatch
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     const { writeContract, data: hash, isPending } = useWriteContract();
     const { isLoading: isConfirming } = useWaitForTransactionReceipt({ hash });
@@ -72,7 +78,7 @@ export default function KYCPage() {
                     </p>
                 </div>
 
-                {!isConnected ? (
+                {!mounted || !isConnected ? (
                     <div className="glass-card p-8 rounded-xl text-center">
                         <Shield className="h-16 w-16 text-sol-primary mx-auto mb-4" />
                         <p className="text-xl text-white mb-2">Connect Your Wallet</p>

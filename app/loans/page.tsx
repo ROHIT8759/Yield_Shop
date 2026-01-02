@@ -12,6 +12,7 @@ import { CONTRACTS, LENDING_ABI, FLASHLOAN_ABI } from '@/config/contracts';
 export default function LoansPage() {
     const { address, isConnected } = useAccount();
     const [activeTab, setActiveTab] = useState<'borrow' | 'flashloan' | 'myloans'>('borrow');
+    const [mounted, setMounted] = useState(false);
 
     // Loan form states
     const [collateralAmount, setCollateralAmount] = useState('');
@@ -29,6 +30,11 @@ export default function LoansPage() {
     const [userLoansData, setUserLoansData] = useState<LoanTransaction[]>([]);
     const [reputation, setReputation] = useState<ReputationData | null>(null);
     const [loading, setLoading] = useState(false);
+
+    // Prevent hydration mismatch
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     // Read user reputation from blockchain
     const { data: onChainReputation } = useReadContract({
@@ -248,7 +254,7 @@ export default function LoansPage() {
                 </div>
 
                 {/* Reputation Card */}
-                {isConnected && address && (
+                {mounted && isConnected && address && (
                     <div className="glass-card rounded-2xl p-8 mb-8 border-2 border-sol-primary/30">
                         <div className="flex items-center justify-between mb-8">
                             <div className="flex items-center gap-4">
@@ -483,7 +489,7 @@ export default function LoansPage() {
                             )}
 
                             {/* Borrow Button */}
-                            {isConnected ? (
+                            {mounted && isConnected ? (
                                 <button
                                     onClick={handleCreateLoan}
                                     disabled={isCreating || !collateralAmount || !borrowAmount || calculateCollateralRatio() < 150}
@@ -641,7 +647,7 @@ export default function LoansPage() {
                             )}
 
                             {/* Execute Button */}
-                            {isConnected ? (
+                            {mounted && isConnected ? (
                                 <button
                                     onClick={handleFlashLoan}
                                     disabled={isFlashLoaning || !flashLoanAmount || !receiverContract}

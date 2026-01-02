@@ -36,12 +36,6 @@ const config: HardhatUserConfig = {
     cache: "./cache",
     artifacts: "./artifacts",
   },
-  etherscan: {
-    apiKey: {
-      mantleTestnet: process.env.MANTLE_API_KEY || "",
-      mantle: process.env.MANTLE_API_KEY || "",
-    },
-  },
 };
 
 export default config;

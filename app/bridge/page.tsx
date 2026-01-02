@@ -78,6 +78,7 @@ const SUPPORTED_TOKENS: Token[] = [
 export default function BridgePage() {
     const { address, isConnected, chain: currentChain } = useAccount();
     const { switchChain } = useSwitchChain();
+    const [mounted, setMounted] = useState(false);
 
     const [fromChain, setFromChain] = useState<Chain>(SUPPORTED_CHAINS[1]); // Mantle
     const [toChain, setToChain] = useState<Chain>(SUPPORTED_CHAINS[0]); // Ethereum
@@ -87,6 +88,11 @@ export default function BridgePage() {
     const [showToChainDropdown, setShowToChainDropdown] = useState(false);
     const [showTokenDropdown, setShowTokenDropdown] = useState(false);
     const [bridgeTxHash, setBridgeTxHash] = useState<`0x${string}` | undefined>(undefined);
+
+    // Prevent hydration mismatch
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     const { data: balance } = useReadContract({
         address: selectedToken.address,
@@ -379,7 +385,7 @@ export default function BridgePage() {
                             </div>
 
                             {/* Bridge Button */}
-                            {isConnected ? (
+                            {mounted && isConnected ? (
                                 <button
                                     onClick={handleBridge}
                                     disabled={isBridging || !amount || parseFloat(amount) <= 0}

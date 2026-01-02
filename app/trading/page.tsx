@@ -29,10 +29,16 @@ interface ChartDataPoint {
 
 export default function TradingPage() {
   const { isConnected } = useAccount();
+  const [mounted, setMounted] = useState(false);
   const [cryptos, setCryptos] = useState<CryptoData[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedCrypto, setSelectedCrypto] = useState<CryptoData | null>(null);
   const [chartData, setChartData] = useState<ChartDataPoint[]>([]);
+
+  // Prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Fetch top crypto prices from CoinGecko
   const fetchCryptoData = async () => {
@@ -118,7 +124,7 @@ export default function TradingPage() {
             </button>
           </div>
 
-          {!isConnected ? (
+          {!mounted || !isConnected ? (
             <div className="glass-card rounded-xl p-12 text-center">
               <Activity className="h-16 w-16 text-sol-primary mx-auto mb-4" />
               <h2 className="text-2xl font-bold text-white mb-2">Connect Your Wallet</h2>

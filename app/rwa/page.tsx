@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar';
 import { useAccount, useReadContract } from 'wagmi';
 import { Building2, TrendingUp, FileText, DollarSign, Calendar, Shield, ExternalLink } from 'lucide-react';
@@ -20,9 +20,15 @@ interface RWAToken {
 
 export default function RWAMarketplace() {
     const { address, isConnected } = useAccount();
+    const [mounted, setMounted] = useState(false);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [tokens, setTokens] = useState<RWAToken[]>([]);
     const [filter, setFilter] = useState<number | null>(null);
+
+    // Prevent hydration mismatch
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     // Check KYC status
     const { data: isKYCVerified } = useReadContract({
@@ -68,7 +74,7 @@ export default function RWAMarketplace() {
                 </div>
 
                 {/* KYC Warning */}
-                {isConnected && !isKYCVerified && (
+                {mounted && isConnected && !isKYCVerified && (
                     <div className="mb-8 p-6 bg-yellow-500/10 border border-yellow-500/20 rounded-xl">
                         <div className="flex items-center gap-4">
                             <Shield className="h-8 w-8 text-yellow-500" />
@@ -94,8 +100,8 @@ export default function RWAMarketplace() {
                     <button
                         onClick={() => setFilter(null)}
                         className={`px-6 py-2 rounded-lg font-semibold transition-all ${filter === null
-                                ? 'bg-sol-primary text-white'
-                                : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                            ? 'bg-sol-primary text-white'
+                            : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                             }`}
                     >
                         All Assets
@@ -105,8 +111,8 @@ export default function RWAMarketplace() {
                             key={key}
                             onClick={() => setFilter(Number(key))}
                             className={`px-6 py-2 rounded-lg font-semibold transition-all ${filter === Number(key)
-                                    ? 'bg-sol-primary text-white'
-                                    : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                                ? 'bg-sol-primary text-white'
+                                : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                                 }`}
                         >
                             {value}

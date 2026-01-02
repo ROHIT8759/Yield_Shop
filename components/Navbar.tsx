@@ -71,7 +71,7 @@ export default function Navbar() {
                                 <Wallet className="h-5 w-5" />
                                 Loading...
                             </button>
-                        ) : isConnected ? (
+                        ) : mounted && isConnected ? (
                             <div className="flex items-center gap-3">
                                 <span className="text-sm text-gray-300">
                                     {address?.slice(0, 6)}...{address?.slice(-4)}
@@ -83,7 +83,7 @@ export default function Navbar() {
                                     Disconnect
                                 </button>
                             </div>
-                        ) : (
+                        ) : mounted ? (
                             <button
                                 onClick={handleConnect}
                                 className="bg-sol-primary/20 hover:bg-sol-primary/40 text-white px-6 py-2 rounded-lg transition-all duration-300 border border-sol-primary/40 hover:shadow-lg hover:shadow-sol-primary/20 flex items-center gap-2"
@@ -91,7 +91,7 @@ export default function Navbar() {
                                 <Wallet className="h-5 w-5" />
                                 Connect Wallet
                             </button>
-                        )}
+                        ) : null}
                     </div>
                 </div>
             </div>

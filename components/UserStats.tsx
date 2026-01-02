@@ -17,33 +17,25 @@ export default function UserStats() {
 
     // Read SHOP token balance
     const { data: shopBalance } = useReadContract({
-        address: CONTRACTS.SHOPTOKEN,
+        address: CONTRACTS.SHOP,
         abi: SHOPTOKEN_ABI,
         functionName: 'balanceOf',
         args: address ? [address] : undefined,
     });
 
-    // Read pending cashback
-    const { data: pendingCashback } = useReadContract({
+    // Read user purchases (returns array of purchase IDs)
+    const { data: userPurchaseIds } = useReadContract({
         address: CONTRACTS.YIELDSHOP,
         abi: YIELDSHOP_ABI,
-        functionName: 'pendingCashback',
+        functionName: 'getUserPurchases',
         args: address ? [address] : undefined,
     });
 
-    // Read total yield earned
-    const { data: totalYield } = useReadContract({
+    // Read user APY
+    const { data: userAPY } = useReadContract({
         address: CONTRACTS.YIELDSHOP,
         abi: YIELDSHOP_ABI,
-        functionName: 'totalYieldEarned',
-        args: address ? [address] : undefined,
-    });
-
-    // Read user purchases count
-    const { data: userPurchases } = useReadContract({
-        address: CONTRACTS.YIELDSHOP,
-        abi: YIELDSHOP_ABI,
-        functionName: 'userPurchases',
+        functionName: 'getUserAPY',
         args: address ? [address] : undefined,
     });
 
@@ -65,9 +57,13 @@ export default function UserStats() {
     }
 
     const shopBalanceFormatted = shopBalance ? parseFloat(formatEther(shopBalance as bigint)).toFixed(2) : '0.00';
-    const pendingCashbackFormatted = pendingCashback ? parseFloat(formatEther(pendingCashback as bigint)).toFixed(2) : '0.00';
-    const totalYieldFormatted = totalYield ? parseFloat(formatEther(totalYield as bigint)).toFixed(2) : '0.00';
-    const purchasesCount = userPurchases ? (userPurchases as Array<unknown>).length : 0;
+    const apyFormatted = userAPY ? (Number(userAPY) / 100).toFixed(2) : '0.00';
+    const purchasesCount = userPurchaseIds ? (userPurchaseIds as Array<unknown>).length : 0;
+
+    // For demonstration - these would come from actual contract functions
+    // For now, show placeholder values
+    const pendingCashbackFormatted = '0.00';
+    const totalYieldFormatted = '0.00';
 
     // Calculate total earnings (pending + yield)
     const totalEarnings = (parseFloat(pendingCashbackFormatted) + parseFloat(totalYieldFormatted)).toFixed(2);

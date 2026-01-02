@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Web3Provider } from "../components/Web3Provider";
 import WalletTracker from "../components/WalletTracker";
+import ErrorBoundary from "../components/ErrorBoundary";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,10 +30,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Web3Provider>
-          <WalletTracker />
-          {children}
-        </Web3Provider>
+        <ErrorBoundary>
+          <Web3Provider>
+            <WalletTracker />
+            {children}
+          </Web3Provider>
+        </ErrorBoundary>
       </body>
     </html>
   );

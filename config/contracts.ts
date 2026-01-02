@@ -445,11 +445,11 @@ export const FLASHLOAN_ABI = [
 
 // Contract addresses (Update these with deployed contract addresses)
 export const CONTRACTS = {
-  YIELDSHOP: '0x2D16943a0DB5363f0Ea583F5b4541d4a7fFaae50' as `0x${string}`,
-  LENDING: '0x1234567890123456789012345678901234567892' as `0x${string}`, // Not yet deployed
-  FLASHLOAN: '0x7eDc4975f913376C9D9146C66fC7b585aE6a70A8' as `0x${string}`,
-  MNT: '0x78c1b0C915c4FAA5FffA6CAbf0219DA63d7f4cb8' as `0x${string}`, // Wrapped MNT on Mantle
-  USDC: '0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9' as `0x${string}`, // USDC on Mantle
-  SHOP: '0x358AA13c52544ECCEF6B0ADD0f801012ADAD5eE3' as `0x${string}`,
+  YIELDSHOP: '0xe1455569427b86082aFBDD21e431Bd60E21a5760' as `0x${string}`,
+  LENDING: '0xE7f99F00ca02d5746F40f818585C187734038e6F' as `0x${string}`,
+  FLASHLOAN: '0x16d6E9232F3195EE82Ec9ee6d7055234E5849ADb' as `0x${string}`,
+  MNT: '0x78c1b0C915c4FAA5FffA6CAbf0219DA63d7f4cb8' as `0x${string}`,
+  USDC: '0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9' as `0x${string}`,
+  SHOP: '0xEDCB9F6E4FAa941b97EdDE1A7C760308e37c522c' as `0x${string}`,
 };
 

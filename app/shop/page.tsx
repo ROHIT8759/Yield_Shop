@@ -105,12 +105,18 @@ const mockProducts: Product[] = [
 
 export default function ShopPage() {
     const { address, isConnected } = useAccount();
+    const [mounted, setMounted] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedRetailer, setSelectedRetailer] = useState<string>('all');
     const [selectedCategory, setSelectedCategory] = useState<string>('all');
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
     const [activeTab, setActiveTab] = useState<'products' | 'coupons'>('products');
     const [showSellModal, setShowSellModal] = useState(false);
+
+    // Prevent hydration mismatch
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     // Coupon form states
     const [couponRetailer, setCouponRetailer] = useState('Amazon');
@@ -410,7 +416,7 @@ export default function ShopPage() {
 
                                             <button
                                                 onClick={() => handleBuyNow(product)}
-                                                disabled={!isConnected}
+                                                disabled={!mounted || !isConnected}
                                                 className="w-full bg-sol-primary hover:bg-sol-primary/80 disabled:bg-gray-600 disabled:cursor-not-allowed text-white py-2 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
                                             >
                                                 <ShoppingCart className="h-4 w-4" />
