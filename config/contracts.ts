@@ -445,11 +445,11 @@ export const FLASHLOAN_ABI = [
 
 // Contract addresses (Update these with deployed contract addresses)
 export const CONTRACTS = {
-  YIELDSHOP: '0x1234567890123456789012345678901234567890' as `0x${string}`, // Replace with deployed contract
-  LENDING: '0x1234567890123456789012345678901234567892' as `0x${string}`, // Replace with deployed lending contract
-  FLASHLOAN: '0x1234567890123456789012345678901234567893' as `0x${string}`, // Replace with deployed flash loan contract
+  YIELDSHOP: '0x2D16943a0DB5363f0Ea583F5b4541d4a7fFaae50' as `0x${string}`,
+  LENDING: '0x1234567890123456789012345678901234567892' as `0x${string}`, // Not yet deployed
+  FLASHLOAN: '0x7eDc4975f913376C9D9146C66fC7b585aE6a70A8' as `0x${string}`,
   MNT: '0x78c1b0C915c4FAA5FffA6CAbf0219DA63d7f4cb8' as `0x${string}`, // Wrapped MNT on Mantle
   USDC: '0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9' as `0x${string}`, // USDC on Mantle
-  SHOP: '0x1234567890123456789012345678901234567891' as `0x${string}`, // Replace with deployed SHOP token
+  SHOP: '0x358AA13c52544ECCEF6B0ADD0f801012ADAD5eE3' as `0x${string}`,
 };
 
