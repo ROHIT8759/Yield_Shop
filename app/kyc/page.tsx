@@ -66,7 +66,7 @@ export default function KYCPage() {
     const expiresAt = kycData ? Number(kycData[2]) : 0;
 
     return (
-        <div className="min-h-screen bg-mantle-dark">
+        <div className="min-h-screen bg-black">
             <Navbar />
             <div className="max-w-6xl mx-auto px-4 py-12">
                 <div className="text-center mb-12">

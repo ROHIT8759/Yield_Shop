@@ -105,7 +105,7 @@ export default function TradingPage() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-sol-bg pt-24 pb-16 px-4">
+      <div className="min-h-screen bg-black pt-24 pb-16 px-4">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -187,8 +187,8 @@ export default function TradingPage() {
                         />
                         <Tooltip
                           contentStyle={{
-                            backgroundColor: '#1a1a2e',
-                            border: '1px solid #8A2BE2',
+                            backgroundColor: '#09090b',
+                            border: '1px solid #3b82f6',
                             borderRadius: '8px'
                           }}
                           labelStyle={{ color: '#fff' }}
@@ -196,7 +196,7 @@ export default function TradingPage() {
                         <Line
                           type="monotone"
                           dataKey="price"
-                          stroke="#8A2BE2"
+                          stroke="#3b82f6"
                           strokeWidth={2}
                           dot={false}
                         />

@@ -443,6 +443,106 @@ export const FLASHLOAN_ABI = [
   }
 ] as const;
 
+// Liquidity Pool ABI
+export const LIQUIDITY_POOL_ABI = [
+  {
+    "inputs": [{"internalType": "uint256", "name": "mntAmount", "type": "uint256"}, {"internalType": "uint256", "name": "usdcAmount", "type": "uint256"}],
+    "name": "addLiquidity",
+    "outputs": [{"internalType": "uint256", "name": "lpTokensToMint", "type": "uint256"}],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{"internalType": "uint256", "name": "lpTokenAmount", "type": "uint256"}],
+    "name": "removeLiquidity",
+    "outputs": [{"internalType": "uint256", "name": "mntAmount", "type": "uint256"}, {"internalType": "uint256", "name": "usdcAmount", "type": "uint256"}],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "claimRewards",
+    "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getPoolStats",
+    "outputs": [
+      {"internalType": "uint256", "name": "mntLiquidity", "type": "uint256"},
+      {"internalType": "uint256", "name": "usdcLiquidity", "type": "uint256"},
+      {"internalType": "uint256", "name": "lpSupply", "type": "uint256"},
+      {"internalType": "uint256", "name": "feesCollected", "type": "uint256"},
+      {"internalType": "uint256", "name": "shoppingVolume", "type": "uint256"}
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{"internalType": "address", "name": "user", "type": "address"}],
+    "name": "getUserLiquidity",
+    "outputs": [
+      {"internalType": "uint256", "name": "mntDeposited", "type": "uint256"},
+      {"internalType": "uint256", "name": "usdcDeposited", "type": "uint256"},
+      {"internalType": "uint256", "name": "lpTokens", "type": "uint256"},
+      {"internalType": "uint256", "name": "rewardsEarned", "type": "uint256"},
+      {"internalType": "uint256", "name": "depositTime", "type": "uint256"}
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{"internalType": "address", "name": "_yieldShopContract", "type": "address"}],
+    "name": "setYieldShopContract",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{"internalType": "address", "name": "spender", "type": "address"}, {"internalType": "bool", "name": "authorized", "type": "bool"}],
+    "name": "setAuthorizedSpender",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{"internalType": "address", "name": "buyer", "type": "address"}, {"internalType": "uint256", "name": "amount", "type": "uint256"}, {"internalType": "address", "name": "paymentToken", "type": "address"}],
+    "name": "processShoppingPayment",
+    "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "totalMNTLiquidity",
+    "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "totalUSDCLiquidity",
+    "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "totalFeesCollected",
+    "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "totalShoppingVolume",
+    "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
+    "stateMutability": "view",
+    "type": "function"
+  }
+] as const;
+
 // Contract addresses (Update these with deployed contract addresses)
 export const CONTRACTS = {
   YIELDSHOP: '0xe1455569427b86082aFBDD21e431Bd60E21a5760' as `0x${string}`,
@@ -451,5 +551,5 @@ export const CONTRACTS = {
   MNT: '0x78c1b0C915c4FAA5FffA6CAbf0219DA63d7f4cb8' as `0x${string}`,
   USDC: '0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9' as `0x${string}`,
   SHOP: '0xEDCB9F6E4FAa941b97EdDE1A7C760308e37c522c' as `0x${string}`,
+  LIQUIDITY_POOL: '0x0000000000000000000000000000000000000000' as `0x${string}`, // Update after deployment
 };
-

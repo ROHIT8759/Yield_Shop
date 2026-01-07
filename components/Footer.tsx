@@ -3,21 +3,21 @@ import { ShoppingBag, Twitter, Github, Send, Mail } from 'lucide-react';
 
 export default function Footer() {
     return (
-        <footer className="bg-black text-white border-t border-gray-900">
+        <footer className="bg-black text-white border-t border-zinc-900">
             <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                     {/* Brand Section */}
                     <div className="col-span-1 md:col-span-2">
                         <div className="flex items-center gap-3 mb-4">
-                            <div className="bg-sol-primary/20 p-2 rounded-lg">
-                                <ShoppingBag className="h-8 w-8 text-sol-primary" />
+                            <div className="bg-blue-500/20 p-2 rounded-lg">
+                                <ShoppingBag className="h-8 w-8 text-blue-500" />
                             </div>
                             <span className="text-2xl font-bold">YieldShop</span>
                         </div>
-                        <p className="text-gray-400 text-sm max-w-md mb-4">
+                        <p className="text-zinc-400 text-sm max-w-md mb-4">
                             Decentralized shopping with DeFi yield. Shop, earn, and trade on Mantle Network with cashback rewards and on-chain reputation.
                         </p>
-                        <p className="text-gray-500 text-xs italic">
+                        <p className="text-zinc-500 text-xs italic">
                             &quot;Shop smart, earn yield, build reputation.&quot;
                         </p>
 
@@ -27,7 +27,7 @@ export default function Footer() {
                                 href="https://twitter.com"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-gray-400 hover:text-sol-primary transition-colors"
+                                className="text-zinc-400 hover:text-blue-500 transition-colors"
                             >
                                 <Twitter className="h-5 w-5" />
                             </a>
@@ -35,7 +35,7 @@ export default function Footer() {
                                 href="https://github.com"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-gray-400 hover:text-sol-primary transition-colors"
+                                className="text-zinc-400 hover:text-blue-500 transition-colors"
                             >
                                 <Github className="h-5 w-5" />
                             </a>
@@ -43,7 +43,7 @@ export default function Footer() {
                                 href="https://t.me"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-gray-400 hover:text-sol-primary transition-colors"
+                                className="text-zinc-400 hover:text-blue-500 transition-colors"
                             >
                                 <Send className="h-5 w-5" />
                             </a>

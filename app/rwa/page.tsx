@@ -60,7 +60,7 @@ export default function RWAMarketplace() {
         : tokens;
 
     return (
-        <div className="min-h-screen bg-mantle-dark">
+        <div className="min-h-screen bg-black">
             <Navbar />
             <div className="max-w-7xl mx-auto px-4 py-12">
                 {/* Header */}

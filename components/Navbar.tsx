@@ -54,6 +54,9 @@ export default function Navbar() {
                         <Link href="/rwa" className="text-gray-300 hover:text-sol-primary transition-colors text-sm tracking-wide uppercase">
                             RWA
                         </Link>
+                        <Link href="/liquidity" className="text-gray-300 hover:text-sol-primary transition-colors text-sm tracking-wide uppercase">
+                            Liquidity
+                        </Link>
                         <Link href="/bridge" className="text-gray-300 hover:text-sol-primary transition-colors text-sm tracking-wide uppercase">
                             Bridge
                         </Link>

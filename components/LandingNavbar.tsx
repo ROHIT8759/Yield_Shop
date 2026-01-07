@@ -35,18 +35,18 @@ export default function LandingNavbar() {
                 <div className="flex justify-between h-20 items-center">
                     <div className="flex items-center">
                         <Link href="/" className="flex items-center gap-2 group">
-                            <div className="bg-sol-primary/20 p-2 rounded-full group-hover:bg-sol-primary/40 transition-all duration-300">
-                                <ShoppingBag className="h-6 w-6 text-sol-primary group-hover:text-white transition-colors" />
+                            <div className="bg-blue-500/20 p-2 rounded-full group-hover:bg-blue-500/40 transition-all duration-300">
+                                <ShoppingBag className="h-6 w-6 text-blue-500 group-hover:text-white transition-colors" />
                             </div>
                             <span className="text-xl font-bold text-white tracking-wider">YieldShop</span>
                         </Link>
                     </div>
 
                     <div className="hidden md:flex items-center space-x-8">
-                        <Link href="#about" className="text-gray-300 hover:text-sol-primary transition-colors text-sm tracking-wide uppercase">
+                        <Link href="#about" className="text-zinc-300 hover:text-blue-500 transition-colors text-sm tracking-wide uppercase">
                             About
                         </Link>
-                        <Link href="#features" className="text-gray-300 hover:text-sol-primary transition-colors text-sm tracking-wide uppercase">
+                        <Link href="#features" className="text-zinc-300 hover:text-blue-500 transition-colors text-sm tracking-wide uppercase">
                             Features
                         </Link>
                         <Link href="#faucet" className="text-gray-300 hover:text-sol-primary transition-colors text-sm tracking-wide uppercase">

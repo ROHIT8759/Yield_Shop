@@ -170,7 +170,7 @@ export default function BridgePage() {
     const receiveAmount = amount ? (parseFloat(amount) - parseFloat(bridgeFee)).toFixed(4) : '0';
 
     return (
-        <div className="min-h-screen bg-sol-dark">
+        <div className="min-h-screen bg-black">
             <Navbar />
 
             <div className="max-w-4xl mx-auto px-4 py-12">

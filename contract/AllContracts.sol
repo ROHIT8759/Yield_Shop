@@ -1,6 +1,413 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}  );    </div>      </div>        )}          </div>            </div>              </div>                </ul>                  <li>✓ Support the YieldShop ecosystem</li>                  <li>✓ No impermanent loss risk (single-sided)</li>                  <li>✓ Proportional rewards based on your stake</li>                  <li>✓ Passive income from platform fees</li>                <ul className="space-y-2 text-gray-300 text-sm">                <h3 className="text-lg font-semibold text-white mb-3">Benefits</h3>              <div className="glass-card p-6 rounded-xl border border-green-500/20">              </div>                </ul>                  <li>• Withdraw liquidity anytime along with rewards</li>                  <li>• Earn 0.3% fee from all shopping transactions</li>                  <li>• Receive LP tokens representing your share</li>                  <li>• Provide MNT and USDC to the liquidity pool</li>                <ul className="space-y-2 text-gray-300 text-sm">                <h3 className="text-lg font-semibold text-white mb-3">How It Works</h3>              <div className="glass-card p-6 rounded-xl border border-blue-500/20">            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">            {/* Info Cards */}            </div>              )}                </div>                  </button>                    {isRemovingLiquidity ? 'Removing...' : 'Remove Liquidity'}                  >                    className="w-full bg-gradient-to-r from-red-500 to-pink-600 text-white font-semibold py-3 px-6 rounded-lg hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all"                    disabled={isRemovingLiquidity}                    onClick={handleRemoveLiquidity}                  <button                  </div>                    )}                      </div>                        Available: {formatEther(userLiquidityData[2])} LP tokens                      <div className="text-sm text-gray-400 mt-2">                    {userLiquidityData && (                    />                      className="w-full bg-gray-800 text-white px-4 py-3 rounded-lg border border-gray-700 focus:border-red-500 focus:outline-none"                      placeholder="0.0"                      onChange={(e) => setRemoveAmount(e.target.value)}                      value={removeAmount}                      type="number"                    <input                    <label className="block text-gray-300 mb-2">LP Token Amount</label>                  <div>                <div className="space-y-4">              {activeTab === 'remove' && (              {/* Remove Liquidity Form */}              )}                </div>                  </button>                    {isApprovalLoading || isAddingLiquidity ? 'Processing...' : 'Add Liquidity'}                  >                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold py-3 px-6 rounded-lg hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all"                    disabled={isApprovalLoading || isAddingLiquidity}                    onClick={handleAddLiquidity}                  <button                  </div>                    />                      className="w-full bg-gray-800 text-white px-4 py-3 rounded-lg border border-gray-700 focus:border-green-500 focus:outline-none"                      placeholder="0.0"                      onChange={(e) => setUsdcAmount(e.target.value)}                      value={usdcAmount}                      type="number"                    <input                    <label className="block text-gray-300 mb-2">USDC Amount</label>                  <div>                  </div>                    />                      className="w-full bg-gray-800 text-white px-4 py-3 rounded-lg border border-gray-700 focus:border-blue-500 focus:outline-none"                      placeholder="0.0"                      onChange={(e) => setMntAmount(e.target.value)}                      value={mntAmount}                      type="number"                    <input                    <label className="block text-gray-300 mb-2">MNT Amount</label>                  <div>                <div className="space-y-4">              {activeTab === 'add' && (              {/* Add Liquidity Form */}              </div>                </button>                  Remove Liquidity                  <Minus className="h-5 w-5 inline mr-2" />                >                  }`}                      : 'text-gray-400 hover:text-white'                      ? 'text-red-400 border-b-2 border-red-400'                    activeTab === 'remove'                  className={`pb-3 px-4 font-semibold transition-colors ${                  onClick={() => setActiveTab('remove')}                <button                </button>                  Add Liquidity                  <Plus className="h-5 w-5 inline mr-2" />                >                  }`}                      : 'text-gray-400 hover:text-white'                      ? 'text-blue-400 border-b-2 border-blue-400'                    activeTab === 'add'                  className={`pb-3 px-4 font-semibold transition-colors ${                  onClick={() => setActiveTab('add')}                <button              <div className="flex space-x-4 mb-6 border-b border-gray-700">              {/* Tabs */}            <div className="glass-card p-8 rounded-xl">            {/* Add/Remove Liquidity */}            )}              </div>                </button>                  {isClaimingRewards ? 'Claiming...' : 'Claim Rewards'}                >                  className="mt-4 w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold py-3 px-6 rounded-lg hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all"                  disabled={isClaimingRewards || userLiquidityData[3] === 0n}                  onClick={handleClaimRewards}                <button                </div>                  </div>                    <div className="text-green-400 font-semibold">${formatEther(userLiquidityData[3])}</div>                    <div className="text-gray-400 text-sm mb-1">Rewards Earned</div>                  <div>                  </div>                    <div className="text-white font-semibold">{formatEther(userLiquidityData[2])}</div>                    <div className="text-gray-400 text-sm mb-1">LP Tokens</div>                  <div>                  </div>                    <div className="text-white font-semibold">{formatEther(userLiquidityData[1])} USDC</div>                    <div className="text-gray-400 text-sm mb-1">USDC Deposited</div>                  <div>                  </div>                    <div className="text-white font-semibold">{formatEther(userLiquidityData[0])} MNT</div>                    <div className="text-gray-400 text-sm mb-1">MNT Deposited</div>                  <div>                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">                <h3 className="text-xl font-bold text-white mb-4">Your Liquidity Position</h3>              <div className="glass-card p-6 rounded-xl border border-sol-primary/20">            {userLiquidityData && userLiquidityData[2] > 0n && (            {/* User Stats */}            </div>              </div>                </div>                  ${poolStatsData ? formatEther(poolStatsData[3]) : '0'}                <div className="text-2xl font-bold text-white">                </div>                  <TrendingUp className="h-5 w-5 text-purple-400" />                  <span className="text-gray-400">Fees Collected</span>                <div className="flex items-center justify-between mb-2">              <div className="glass-card p-6 rounded-xl border border-purple-500/20">              </div>                </div>                  {poolStatsData ? formatEther(poolStatsData[1]) : '0'} USDC                <div className="text-2xl font-bold text-white">                </div>                  <DollarSign className="h-5 w-5 text-green-400" />                  <span className="text-gray-400">Total USDC</span>                <div className="flex items-center justify-between mb-2">              <div className="glass-card p-6 rounded-xl border border-green-500/20">              </div>                </div>                  {poolStatsData ? formatEther(poolStatsData[0]) : '0'} MNT                <div className="text-2xl font-bold text-white">                </div>                  <DollarSign className="h-5 w-5 text-blue-400" />                  <span className="text-gray-400">Total MNT</span>                <div className="flex items-center justify-between mb-2">              <div className="glass-card p-6 rounded-xl border border-blue-500/20">            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">            {/* Pool Statistics */}          <div className="space-y-8">        ) : (          </div>            <p className="text-gray-400">Connect to provide liquidity and earn rewards</p>            <h3 className="text-xl font-bold text-white mb-2">Connect Your Wallet</h3>            <Wallet className="h-16 w-16 text-blue-400 mx-auto mb-4" />          <div className="glass-card p-8 rounded-2xl text-center max-w-md mx-auto">        {!mounted || !isConnected ? (        </div>          </p>            Provide liquidity and earn fees from every shopping transaction          <p className="text-xl text-gray-300 max-w-3xl mx-auto">          </div>            <h1 className="text-4xl md:text-5xl font-bold text-white">Liquidity Pool</h1>            <Droplet className="h-12 w-12 text-blue-400 mr-3" />          <div className="flex items-center justify-center mb-4">        <div className="text-center mb-12">        {/* Header */}      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">            <Navbar />    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-purple-900 to-gray-900">  return (  const userLiquidityData = userLiquidity as [bigint, bigint, bigint, bigint, bigint] | undefined;  const poolStatsData = poolStats as [bigint, bigint, bigint, bigint, bigint] | undefined;  if (!mounted) return null;  };    }      alert('Failed to claim rewards');      console.error('Error claiming rewards:', error);    } catch (error) {      alert('Rewards claimed successfully!');      });        functionName: 'claimRewards',        abi: LIQUIDITY_POOL_ABI,        address: LIQUIDITY_POOL_ADDRESS,      claimRew({    try {  const handleClaimRewards = async () => {  };    }      alert('Failed to remove liquidity');      console.error('Error removing liquidity:', error);    } catch (error) {      setRemoveAmount('');      alert('Liquidity removed successfully!');      });        args: [removeAmountWei],        functionName: 'removeLiquidity',        abi: LIQUIDITY_POOL_ABI,        address: LIQUIDITY_POOL_ADDRESS,      removeLiq({      const removeAmountWei = parseEther(removeAmount);    try {    }      return;      alert('Please enter LP token amount to remove');    if (!removeAmount) {  const handleRemoveLiquidity = async () => {  };    }      alert('Failed to add liquidity');      console.error('Error adding liquidity:', error);    } catch (error) {      setUsdcAmount('');      setMntAmount('');      alert('Liquidity added successfully!');      }, 4000);        });          args: [mntAmountWei, usdcAmountWei],          functionName: 'addLiquidity',          abi: LIQUIDITY_POOL_ABI,          address: LIQUIDITY_POOL_ADDRESS,        addLiq({      setTimeout(() => {      // Wait a bit then add liquidity      }, 2000);        });          args: [LIQUIDITY_POOL_ADDRESS, usdcAmountWei],          functionName: 'approve',          abi: ERC20_ABI,          address: USDC_ADDRESS,        approveUSDC({      setTimeout(() => {      // Wait a bit then approve USDC      });        args: [LIQUIDITY_POOL_ADDRESS, mntAmountWei],        functionName: 'approve',        abi: ERC20_ABI,        address: MNT_ADDRESS,      approveMNT({      // Approve MNT      const usdcAmountWei = parseEther(usdcAmount);      const mntAmountWei = parseEther(mntAmount);    try {    }      return;      alert('Please enter both MNT and USDC amounts');    if (!mntAmount || !usdcAmount) {  const handleAddLiquidity = async () => {  const { isLoading: isClaimingRewards } = useWaitForTransactionReceipt({ hash: claimRewardHash });  const { isLoading: isRemovingLiquidity } = useWaitForTransactionReceipt({ hash: removeLiqHash });  const { isLoading: isAddingLiquidity } = useWaitForTransactionReceipt({ hash: addLiqHash });  const { isLoading: isApprovalLoading } = useWaitForTransactionReceipt({ hash: approveMNTHash });  const { writeContract: claimRew, data: claimRewardHash } = useWriteContract();  const { writeContract: removeLiq, data: removeLiqHash } = useWriteContract();  const { writeContract: addLiq, data: addLiqHash } = useWriteContract();  const { writeContract: approveUSDC, data: approveUSDCHash } = useWriteContract();  const { writeContract: approveMNT, data: approveMNTHash } = useWriteContract();  // Write contracts  });    args: address ? [address] : undefined,    functionName: 'getUserLiquidity',    abi: LIQUIDITY_POOL_ABI,    address: LIQUIDITY_POOL_ADDRESS,  const { data: userLiquidity } = useReadContract({  // Read user liquidity  });    functionName: 'getPoolStats',    abi: LIQUIDITY_POOL_ABI,    address: LIQUIDITY_POOL_ADDRESS,  const { data: poolStats } = useReadContract({  // Read pool stats  }, []);    setMounted(true);  useEffect(() => {  const [activeTab, setActiveTab] = useState<'add' | 'remove'>('add');  const [removeAmount, setRemoveAmount] = useState('');  const [usdcAmount, setUsdcAmount] = useState('');  const [mntAmount, setMntAmount] = useState('');  const [mounted, setMounted] = useState(false);  const { address, isConnected } = useAccount();export default function LiquidityPoolPage() {const USDC_ADDRESS = '0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9' as `0x${string}`;const MNT_ADDRESS = '0x78c1b0C915c4FAA5FffA6CAbf0219DA63d7f4cb8' as `0x${string}`;const LIQUIDITY_POOL_ADDRESS = '0x0000000000000000000000000000000000000000' as `0x${string}`;// Contract addresses - Update these after deployment];  }    "type": "function"    "stateMutability": "nonpayable",    "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],    "name": "approve",    "inputs": [{"internalType": "address", "name": "spender", "type": "address"}, {"internalType": "uint256", "name": "amount", "type": "uint256"}],  {const ERC20_ABI = [];  }    "type": "function"    "stateMutability": "view",    ],      {"internalType": "uint256", "name": "depositTime", "type": "uint256"}      {"internalType": "uint256", "name": "rewardsEarned", "type": "uint256"},      {"internalType": "uint256", "name": "lpTokens", "type": "uint256"},      {"internalType": "uint256", "name": "usdcDeposited", "type": "uint256"},      {"internalType": "uint256", "name": "mntDeposited", "type": "uint256"},    "outputs": [    "name": "getUserLiquidity",    "inputs": [{"internalType": "address", "name": "user", "type": "address"}],  {  },    "type": "function"    "stateMutability": "view",    ],      {"internalType": "uint256", "name": "shoppingVolume", "type": "uint256"}      {"internalType": "uint256", "name": "feesCollected", "type": "uint256"},      {"internalType": "uint256", "name": "lpSupply", "type": "uint256"},      {"internalType": "uint256", "name": "usdcLiquidity", "type": "uint256"},      {"internalType": "uint256", "name": "mntLiquidity", "type": "uint256"},    "outputs": [    "name": "getPoolStats",    "inputs": [],  {  },    "type": "function"    "stateMutability": "nonpayable",    "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],    "name": "claimRewards",    "inputs": [],  {  },    "type": "function"    "stateMutability": "nonpayable",    "outputs": [{"internalType": "uint256", "name": "mntAmount", "type": "uint256"}, {"internalType": "uint256", "name": "usdcAmount", "type": "uint256"}],    "name": "removeLiquidity",    "inputs": [{"internalType": "uint256", "name": "lpTokenAmount", "type": "uint256"}],  {  },    "type": "function"    "stateMutability": "nonpayable",    "outputs": [{"internalType": "uint256", "name": "lpTokensToMint", "type": "uint256"}],    "name": "addLiquidity",    "inputs": [{"internalType": "uint256", "name": "mntAmount", "type": "uint256"}, {"internalType": "uint256", "name": "usdcAmount", "type": "uint256"}],  {const LIQUIDITY_POOL_ABI = [// Liquidity Pool ABIimport Navbar from '@/components/Navbar';import { Droplet, Plus, Minus, TrendingUp, DollarSign, Wallet } from 'lucide-react';import { parseEther, formatEther } from 'viem';import { useAccount, useWriteContract, useReadContract, useWaitForTransactionReceipt } from 'wagmi';import { useState, useEffect } from 'react';
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -49,6 +456,8 @@ contract YieldShop is Ownable, ReentrancyGuard, Pausable {
     IERC20 public immutable mntToken;
     IERC20 public immutable usdcToken;
     IERC20 public immutable shopToken;
+    
+    address public liquidityPool;
     
     uint256 public constant CASHBACK_RATE = 100;
     uint256 public constant SHOP_REWARD_RATE = 100;
@@ -127,6 +536,11 @@ contract YieldShop is Ownable, ReentrancyGuard, Pausable {
         shopToken = IERC20(_shopToken);
     }
     
+    function setLiquidityPool(address _liquidityPool) external onlyOwner {
+        require(_liquidityPool != address(0), "Invalid address");
+        liquidityPool = _liquidityPool;
+    }
+    
     function recordAffiliatePurchase(address buyer, string memory retailer, uint256 amount) external onlyOwner nonReentrant whenNotPaused returns (uint256) {
         require(buyer != address(0) && amount > 0, "Invalid params");
         
@@ -156,7 +570,21 @@ contract YieldShop is Ownable, ReentrancyGuard, Pausable {
     function purchaseGiftCard(string memory retailer, uint256 amount, address paymentToken) external nonReentrant whenNotPaused returns (uint256) {
         require(amount > 0 && (paymentToken == address(mntToken) || paymentToken == address(usdcToken)), "Invalid params");
         
+        // Transfer payment from user to this contract
         IERC20(paymentToken).transferFrom(msg.sender, address(this), amount);
+        
+        // If liquidity pool is set, use it for payment processing
+        if (liquidityPool != address(0)) {
+            // Approve liquidity pool to spend tokens
+            IERC20(paymentToken).approve(liquidityPool, amount);
+            
+            // Process payment through liquidity pool
+            // The pool will deduct fees and handle the transaction
+            (bool success, ) = liquidityPool.call(
+                abi.encodeWithSignature("processShoppingPayment(address,uint256,address)", msg.sender, amount, paymentToken)
+            );
+            require(success, "Pool payment failed");
+        }
         
         uint256 shopReward = (amount * SHOP_REWARD_RATE) / BASIS_POINTS;
         uint256 giftCardId = nextGiftCardId++;
@@ -172,7 +600,7 @@ contract YieldShop is Ownable, ReentrancyGuard, Pausable {
         userGiftCards[msg.sender].push(giftCardId);
         totalGiftCardsSold += amount;
         
-        if (shopReward > 0) shopToken.transfer(msg.sender, shopReward);
+        if (shopReward > 0) ShopToken(address(shopToken)).mint(msg.sender, shopReward);
         
         emit GiftCardPurchased(giftCardId, msg.sender, retailer, amount, shopReward, paymentToken);
         return giftCardId;
@@ -715,5 +1143,190 @@ contract RWAFactory is AccessControl {
         kycRegistry = _kycRegistry;
         custodyContract = _custodyContract;
         yieldDistributor = _yieldDistributor;
+    }
+}
+
+// ============================================================================
+// LIQUIDITY POOL CONTRACT
+// ============================================================================
+
+contract LiquidityPool is Ownable, ReentrancyGuard, Pausable {
+    IERC20 public immutable mntToken;
+    IERC20 public immutable usdcToken;
+    IERC20 public immutable lpToken; // LP token for liquidity providers
+    
+    address public yieldShopContract;
+    
+    uint256 public totalMNTLiquidity;
+    uint256 public totalUSDCLiquidity;
+    uint256 public totalLPSupply;
+    
+    uint256 public constant MINIMUM_LIQUIDITY = 1000;
+    uint256 public constant FEE_RATE = 30; // 0.3% fee
+    uint256 public constant BASIS_POINTS = 10000;
+    
+    struct LiquidityProvider {
+        uint256 mntDeposited;
+        uint256 usdcDeposited;
+        uint256 lpTokens;
+        uint256 rewardsEarned;
+        uint256 depositTime;
+    }
+    
+    mapping(address => LiquidityProvider) public liquidityProviders;
+    mapping(address => bool) public authorizedSpenders;
+    
+    uint256 public totalFeesCollected;
+    uint256 public totalShoppingVolume;
+    
+    event LiquidityAdded(address indexed provider, uint256 mntAmount, uint256 usdcAmount, uint256 lpTokens);
+    event LiquidityRemoved(address indexed provider, uint256 mntAmount, uint256 usdcAmount, uint256 lpTokens);
+    event ShoppingPayment(address indexed buyer, uint256 amount, address token, uint256 fee);
+    event RewardsClaimed(address indexed provider, uint256 amount);
+    event AuthorizedSpenderUpdated(address indexed spender, bool authorized);
+    
+    constructor(address _mntToken, address _usdcToken, address _lpToken) Ownable(msg.sender) {
+        require(_mntToken != address(0) && _usdcToken != address(0) && _lpToken != address(0), "Invalid addresses");
+        mntToken = IERC20(_mntToken);
+        usdcToken = IERC20(_usdcToken);
+        lpToken = IERC20(_lpToken);
+    }
+    
+    function setYieldShopContract(address _yieldShopContract) external onlyOwner {
+        require(_yieldShopContract != address(0), "Invalid address");
+        yieldShopContract = _yieldShopContract;
+        authorizedSpenders[_yieldShopContract] = true;
+        emit AuthorizedSpenderUpdated(_yieldShopContract, true);
+    }
+    
+    function setAuthorizedSpender(address spender, bool authorized) external onlyOwner {
+        authorizedSpenders[spender] = authorized;
+        emit AuthorizedSpenderUpdated(spender, authorized);
+    }
+    
+    function addLiquidity(uint256 mntAmount, uint256 usdcAmount) external nonReentrant whenNotPaused returns (uint256 lpTokensToMint) {
+        require(mntAmount > 0 && usdcAmount > 0, "Invalid amounts");
+        
+        mntToken.transferFrom(msg.sender, address(this), mntAmount);
+        usdcToken.transferFrom(msg.sender, address(this), usdcAmount);
+        
+        if (totalLPSupply == 0) {
+            lpTokensToMint = sqrt(mntAmount * usdcAmount);
+            require(lpTokensToMint > MINIMUM_LIQUIDITY, "Insufficient liquidity");
+        } else {
+            uint256 mntShare = (mntAmount * totalLPSupply) / totalMNTLiquidity;
+            uint256 usdcShare = (usdcAmount * totalLPSupply) / totalUSDCLiquidity;
+            lpTokensToMint = mntShare < usdcShare ? mntShare : usdcShare;
+        }
+        
+        LiquidityProvider storage provider = liquidityProviders[msg.sender];
+        provider.mntDeposited += mntAmount;
+        provider.usdcDeposited += usdcAmount;
+        provider.lpTokens += lpTokensToMint;
+        provider.depositTime = block.timestamp;
+        
+        totalMNTLiquidity += mntAmount;
+        totalUSDCLiquidity += usdcAmount;
+        totalLPSupply += lpTokensToMint;
+        
+        emit LiquidityAdded(msg.sender, mntAmount, usdcAmount, lpTokensToMint);
+    }
+    
+    function removeLiquidity(uint256 lpTokenAmount) external nonReentrant returns (uint256 mntAmount, uint256 usdcAmount) {
+        require(lpTokenAmount > 0, "Invalid amount");
+        LiquidityProvider storage provider = liquidityProviders[msg.sender];
+        require(provider.lpTokens >= lpTokenAmount, "Insufficient LP tokens");
+        
+        mntAmount = (lpTokenAmount * totalMNTLiquidity) / totalLPSupply;
+        usdcAmount = (lpTokenAmount * totalUSDCLiquidity) / totalLPSupply;
+        
+        provider.mntDeposited -= mntAmount;
+        provider.usdcDeposited -= usdcAmount;
+        provider.lpTokens -= lpTokenAmount;
+        
+        totalMNTLiquidity -= mntAmount;
+        totalUSDCLiquidity -= usdcAmount;
+        totalLPSupply -= lpTokenAmount;
+        
+        mntToken.transfer(msg.sender, mntAmount);
+        usdcToken.transfer(msg.sender, usdcAmount);
+        
+        emit LiquidityRemoved(msg.sender, mntAmount, usdcAmount, lpTokenAmount);
+    }
+    
+    function processShoppingPayment(address buyer, uint256 amount, address paymentToken) external nonReentrant whenNotPaused returns (bool) {
+        require(authorizedSpenders[msg.sender], "Not authorized");
+        require(amount > 0, "Invalid amount");
+        require(paymentToken == address(mntToken) || paymentToken == address(usdcToken), "Unsupported token");
+        
+        uint256 fee = (amount * FEE_RATE) / BASIS_POINTS;
+        uint256 netAmount = amount - fee;
+        
+        IERC20 token = IERC20(paymentToken);
+        require(token.balanceOf(address(this)) >= netAmount, "Insufficient liquidity");
+        
+        token.transfer(buyer, netAmount);
+        
+        if (paymentToken == address(mntToken)) {
+            totalMNTLiquidity -= netAmount;
+        } else {
+            totalUSDCLiquidity -= netAmount;
+        }
+        
+        totalFeesCollected += fee;
+        totalShoppingVolume += amount;
+        
+        emit ShoppingPayment(buyer, amount, paymentToken, fee);
+        return true;
+    }
+    
+    function claimRewards() external nonReentrant returns (uint256) {
+        LiquidityProvider storage provider = liquidityProviders[msg.sender];
+        require(provider.lpTokens > 0, "No liquidity provided");
+        
+        uint256 providerShare = (provider.lpTokens * BASIS_POINTS) / totalLPSupply;
+        uint256 rewards = (totalFeesCollected * providerShare) / BASIS_POINTS;
+        
+        require(rewards > 0, "No rewards available");
+        provider.rewardsEarned += rewards;
+        
+        usdcToken.transfer(msg.sender, rewards);
+        
+        emit RewardsClaimed(msg.sender, rewards);
+        return rewards;
+    }
+    
+    function getPoolStats() external view returns (
+        uint256 mntLiquidity,
+        uint256 usdcLiquidity,
+        uint256 lpSupply,
+        uint256 feesCollected,
+        uint256 shoppingVolume
+    ) {
+        return (totalMNTLiquidity, totalUSDCLiquidity, totalLPSupply, totalFeesCollected, totalShoppingVolume);
+    }
+    
+    function getUserLiquidity(address user) external view returns (
+        uint256 mntDeposited,
+        uint256 usdcDeposited,
+        uint256 lpTokens,
+        uint256 rewardsEarned,
+        uint256 depositTime
+    ) {
+        LiquidityProvider memory provider = liquidityProviders[user];
+        return (provider.mntDeposited, provider.usdcDeposited, provider.lpTokens, provider.rewardsEarned, provider.depositTime);
+    }
+    
+    function sqrt(uint256 y) internal pure returns (uint256 z) {
+        if (y > 3) {
+            z = y;
+            uint256 x = y / 2 + 1;
+            while (x < z) {
+                z = x;
+                x = (y / x + x) / 2;
+            }
+        } else if (y != 0) {
+            z = 1;
+        }
     }
 }

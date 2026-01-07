@@ -4,6 +4,7 @@ import "./globals.css";
 import { Web3Provider } from "../components/Web3Provider";
 import WalletTracker from "../components/WalletTracker";
 import ErrorBoundary from "../components/ErrorBoundary";
+import SoundManager from "../components/SoundManager";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +33,7 @@ export default function RootLayout({
       >
         <ErrorBoundary>
           <Web3Provider>
+            <SoundManager />
             <WalletTracker />
             {children}
           </Web3Provider>

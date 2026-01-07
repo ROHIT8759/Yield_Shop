@@ -10,25 +10,26 @@ const config: Config = {
     extend: {
       colors: {
         sol: {
-          bg: "#030014", // Deep dark purple/black
-          card: "#1a103d", // Dark purple card bg
-          primary: "#8A2BE2", // Neon Purple
-          secondary: "#4B0082", // Indigo
-          accent: "#D8BFD8", // Thistle/Light Purple
-          text: "#E6E6FA", // Lavender
+          bg: "#000000",
+          card: "#09090b", // Modern Black
+          primary: "#3b82f6", // Premium Blue
+          secondary: "#1d4ed8", // Darker Blue
+          accent: "#60a5fa", // Light Blue
+          text: "#fafafa", // White
+          dark: "#09090b",
         },
         mantle: {
-          primary: "#65B3AE",
-          secondary: "#1a1a2e",
-          accent: "#00D9FF",
-          dark: "#0f0f1a",
+          primary: "#3b82f6", // Unified Blue
+          secondary: "#09090b",
+          accent: "#60a5fa",
+          dark: "#000000",
         },
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        "hero-glow": "conic-gradient(from 180deg at 50% 50%, #2a0e61 0deg, #10002b 55deg, #3c096c 120deg, #030014 160deg, transparent 360deg)",
+        "hero-glow": "radial-gradient(circle at center, rgba(59, 130, 246, 0.15) 0%, transparent 70%)",
       },
       animation: {
         "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",

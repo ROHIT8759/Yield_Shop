@@ -48,9 +48,9 @@ export default function UserStats() {
         return (
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 <div className="glass-card p-8 rounded-2xl text-center">
-                    <Wallet className="h-12 w-12 text-sol-primary mx-auto mb-4" />
+                    <Wallet className="h-12 w-12 text-blue-500 mx-auto mb-4" />
                     <h3 className="text-xl font-bold text-white mb-2">Connect Your Wallet</h3>
-                    <p className="text-gray-400">Connect to see your earnings and token balances</p>
+                    <p className="text-zinc-400">Connect to see your earnings and token balances</p>
                 </div>
             </div>
         );
@@ -72,87 +72,87 @@ export default function UserStats() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <div className="text-center mb-8">
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">Your Dashboard</h2>
-                <p className="text-gray-400">Real-time stats from the blockchain</p>
+                <p className="text-zinc-400">Real-time stats from the blockchain</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {/* SHOP Token Balance */}
-                <div className="glass-card p-6 rounded-xl hover:scale-[1.02] transition-transform duration-300 border border-sol-primary/20">
+                <div className="glass-card p-6 rounded-xl hover:scale-[1.02] transition-transform duration-300">
                     <div className="flex items-center justify-between mb-4">
-                        <div className="bg-sol-primary/20 p-3 rounded-lg">
-                            <Coins className="h-6 w-6 text-sol-primary" />
+                        <div className="bg-blue-500/10 p-3 rounded-lg">
+                            <Coins className="h-6 w-6 text-blue-500" />
                         </div>
-                        <span className="text-xs text-gray-500 uppercase tracking-wider">$SHOP Tokens</span>
+                        <span className="text-xs text-zinc-500 uppercase tracking-wider">$SHOP Tokens</span>
                     </div>
                     <div className="text-3xl font-bold text-white mb-1">
                         {shopBalanceFormatted}
                     </div>
-                    <p className="text-sm text-gray-400">Reward tokens earned</p>
+                    <p className="text-sm text-zinc-400">Reward tokens earned</p>
                 </div>
 
                 {/* Total Earnings */}
-                <div className="glass-card p-6 rounded-xl hover:scale-[1.02] transition-transform duration-300 border border-green-500/20">
+                <div className="glass-card p-6 rounded-xl hover:scale-[1.02] transition-transform duration-300">
                     <div className="flex items-center justify-between mb-4">
-                        <div className="bg-green-500/20 p-3 rounded-lg">
-                            <TrendingUp className="h-6 w-6 text-green-400" />
+                        <div className="bg-green-500/10 p-3 rounded-lg">
+                            <TrendingUp className="h-6 w-6 text-green-500" />
                         </div>
-                        <span className="text-xs text-gray-500 uppercase tracking-wider">Total Earnings</span>
+                        <span className="text-xs text-zinc-500 uppercase tracking-wider">Total Earnings</span>
                     </div>
                     <div className="text-3xl font-bold text-white mb-1">
                         ${totalEarnings}
                     </div>
-                    <p className="text-sm text-gray-400">Cashback + Yield</p>
+                    <p className="text-sm text-zinc-400">Cashback + Yield</p>
                 </div>
 
                 {/* Pending Cashback */}
-                <div className="glass-card p-6 rounded-xl hover:scale-[1.02] transition-transform duration-300 border border-yellow-500/20">
+                <div className="glass-card p-6 rounded-xl hover:scale-[1.02] transition-transform duration-300">
                     <div className="flex items-center justify-between mb-4">
-                        <div className="bg-yellow-500/20 p-3 rounded-lg">
-                            <DollarSign className="h-6 w-6 text-yellow-400" />
+                        <div className="bg-yellow-500/10 p-3 rounded-lg">
+                            <DollarSign className="h-6 w-6 text-yellow-500" />
                         </div>
-                        <span className="text-xs text-gray-500 uppercase tracking-wider">Pending Cashback</span>
+                        <span className="text-xs text-zinc-500 uppercase tracking-wider">Pending Cashback</span>
                     </div>
                     <div className="text-3xl font-bold text-white mb-1">
                         ${pendingCashbackFormatted}
                     </div>
-                    <p className="text-sm text-gray-400">Ready to claim</p>
+                    <p className="text-sm text-zinc-400">Ready to claim</p>
                 </div>
 
                 {/* Yield Earned */}
-                <div className="glass-card p-6 rounded-xl hover:scale-[1.02] transition-transform duration-300 border border-blue-500/20">
+                <div className="glass-card p-6 rounded-xl hover:scale-[1.02] transition-transform duration-300">
                     <div className="flex items-center justify-between mb-4">
-                        <div className="bg-blue-500/20 p-3 rounded-lg">
-                            <TrendingUp className="h-6 w-6 text-blue-400" />
+                        <div className="bg-purple-500/10 p-3 rounded-lg">
+                            <TrendingUp className="h-6 w-6 text-purple-500" />
                         </div>
-                        <span className="text-xs text-gray-500 uppercase tracking-wider">DeFi Yield</span>
+                        <span className="text-xs text-zinc-500 uppercase tracking-wider">DeFi Yield</span>
                     </div>
                     <div className="text-3xl font-bold text-white mb-1">
                         ${totalYieldFormatted}
                     </div>
-                    <p className="text-sm text-gray-400">From staking</p>
+                    <p className="text-sm text-zinc-400">From staking</p>
                 </div>
             </div>
 
             {/* Additional Stats */}
-            <div className="mt-8 glass-card p-6 rounded-xl border border-sol-primary/20">
+            <div className="mt-8 glass-card p-6 rounded-xl">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                     <div>
-                        <div className="text-2xl font-bold text-sol-primary">{purchasesCount}</div>
-                        <div className="text-sm text-gray-400 mt-1">Total Purchases</div>
+                        <div className="text-2xl font-bold text-blue-500">{purchasesCount}</div>
+                        <div className="text-sm text-zinc-400 mt-1">Total Purchases</div>
                     </div>
                     <div>
-                        <div className="text-2xl font-bold text-sol-primary">
+                        <div className="text-2xl font-bold text-blue-500">
                             {address ? `${address.slice(0, 6)}...${address.slice(-4)}` : '—'}
                         </div>
-                        <div className="text-sm text-gray-400 mt-1">Wallet Address</div>
+                        <div className="text-sm text-zinc-400 mt-1">Wallet Address</div>
                     </div>
                     <div>
-                        <div className="text-2xl font-bold text-green-400">Active</div>
-                        <div className="text-sm text-gray-400 mt-1">Status</div>
+                        <div className="text-2xl font-bold text-green-500">Active</div>
+                        <div className="text-sm text-zinc-400 mt-1">Status</div>
                     </div>
                     <div>
-                        <div className="text-2xl font-bold text-blue-400">Mantle</div>
-                        <div className="text-sm text-gray-400 mt-1">Network</div>
+                        <div className="text-2xl font-bold text-white">Mantle</div>
+                        <div className="text-sm text-zinc-400 mt-1">Network</div>
                     </div>
                 </div>
             </div>

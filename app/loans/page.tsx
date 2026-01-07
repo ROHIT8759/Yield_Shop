@@ -239,7 +239,7 @@ export default function LoansPage() {
     };
 
     return (
-        <div className="min-h-screen bg-sol-dark">
+        <div className="min-h-screen bg-black">
             <Navbar />
 
             <div className="max-w-7xl mx-auto px-4 py-12">
@@ -258,7 +258,7 @@ export default function LoansPage() {
                     <div className="glass-card rounded-2xl p-8 mb-8 border-2 border-sol-primary/30">
                         <div className="flex items-center justify-between mb-8">
                             <div className="flex items-center gap-4">
-                                <div className="bg-gradient-to-br from-sol-primary/30 to-purple-600/30 p-4 rounded-2xl border border-sol-primary/50">
+                                <div className="bg-gradient-to-br from-sol-primary/30 to-blue-600/30 p-4 rounded-2xl border border-sol-primary/50">
                                     <Trophy className="h-10 w-10 text-sol-primary" />
                                 </div>
                                 <div>
@@ -270,7 +270,7 @@ export default function LoansPage() {
                                 {/* Reputation Score Circle */}
                                 <div className="relative inline-block">
                                     <div className={`w-32 h-32 rounded-full border-8 ${reputation?.level === 5 ? 'border-yellow-400 bg-yellow-500/10' :
-                                        reputation?.level === 4 ? 'border-purple-400 bg-purple-500/10' :
+                                        reputation?.level === 4 ? 'border-cyan-400 bg-cyan-500/10' :
                                             reputation?.level === 3 ? 'border-green-400 bg-green-500/10' :
                                                 reputation?.level === 2 ? 'border-blue-400 bg-blue-500/10' :
                                                     reputation?.level === 1 ? 'border-orange-400 bg-orange-500/10' :
@@ -351,7 +351,7 @@ export default function LoansPage() {
                                 </div>
                                 <div className="w-full bg-gray-700 rounded-full h-3">
                                     <div
-                                        className="bg-gradient-to-r from-sol-primary to-purple-500 h-3 rounded-full transition-all duration-500"
+                                        className="bg-gradient-to-r from-sol-primary to-cyan-500 h-3 rounded-full transition-all duration-500"
                                         style={{
                                             width: `${reputation.total_loans ? Math.min(100, (reputation.repaid_on_time / reputation.total_loans) * 100) : 0}%`
                                         }}

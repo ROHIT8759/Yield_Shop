@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #030014;
-  --foreground: #E6E6FA;
+  --background: #000000;
+  --foreground: #FFFFFF;
 }
 
 body {
@@ -20,52 +20,137 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #030014;
+  background: #000000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #4B0082;
+  background: #27272a;
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #8A2BE2;
+  background: #3f3f46;
 }
 
-/* Glassmorphism Utilities */
+/* Modern Black Theme Cards */
 .glass-card {
-  background: rgba(26, 16, 61, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(138, 43, 226, 0.2);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  background: #09090b;
+  /* zinc-950 */
+  border: 1px solid #27272a;
+  /* zinc-800 */
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  background: #18181b;
+  /* zinc-900 */
+  border-color: #3f3f46;
+  /* zinc-700 */
+  box-shadow: 0 20px 40px -15px rgba(59, 130, 246, 0.15);
+  transform: translateY(-4px);
 }
 
 .glass-nav {
-  background: rgba(3, 0, 20, 0.3);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(138, 43, 226, 0.1);
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Text Glow */
+/* Text Glow & Gradients */
 .text-glow {
-  text-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+  text-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
 }
 
-/* Button Glow */
-.btn-glow {
-  box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
+.text-gradient {
+  background: linear-gradient(135deg, #fff 0%, #a1a1aa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
+
+.text-gradient-blue {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Button Glow & Styles */
+.btn-glow {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+  transition: all 0.3s ease;
+}
+
+.btn-glow::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+}
+
+.btn-glow:hover::after {
+  left: 100%;
+}
+
 .btn-glow:hover {
-  box-shadow: 0 0 25px rgba(138, 43, 226, 0.6);
+  box-shadow: 0 0 35px rgba(59, 130, 246, 0.6);
+  transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes music-bar {
+
+  0%,
+  100% {
+    height: 20%;
+    opacity: 0.5;
+  }
+
+  50% {
+    height: 80%;
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-fade-in-delay-1 {
+  animation-delay: 0.2s;
+}
+
+.animate-fade-in-delay-2 {
+  animation-delay: 0.4s;
+}
+
+.animate-fade-in-delay-3 {
+  animation-delay: 0.6s;
 }
 
 /* Custom Wallet Connect Button Styling */
 button[data-testid="rk-connect-button"],
 div[data-testid="rk-account-button"] {
-  background: rgba(138, 43, 226, 0.2) !important;
-  border: 1px solid rgba(138, 43, 226, 0.4) !important;
+  background: #18181b !important;
+  border: 1px solid #3f3f46 !important;
   color: white !important;
   padding: 10px 20px !important;
   border-radius: 8px !important;
@@ -75,8 +160,8 @@ div[data-testid="rk-account-button"] {
 
 button[data-testid="rk-connect-button"]:hover,
 div[data-testid="rk-account-button"]:hover {
-  background: rgba(138, 43, 226, 0.4) !important;
-  box-shadow: 0 0 20px rgba(138, 43, 226, 0.5) !important;
+  background: #27272a !important;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3) !important;
 }
 
 /* Animated Background Blobs */
@@ -84,12 +169,15 @@ div[data-testid="rk-account-button"]:hover {
   0% {
     transform: translate(0px, 0px) scale(1);
   }
+
   33% {
     transform: translate(30px, -50px) scale(1.1);
   }
+
   66% {
     transform: translate(-20px, 20px) scale(0.9);
   }
+
   100% {
     transform: translate(0px, 0px) scale(1);
   }
