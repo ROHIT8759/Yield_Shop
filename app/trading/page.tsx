@@ -1,12 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { TrendingUp, TrendingDown, RefreshCw, Activity } from 'lucide-react';
-import { useAccount } from 'wagmi';
+import { TrendingUp, TrendingDown, RefreshCw, Activity, ArrowDownUp, Loader2 } from 'lucide-react';
+import { useAccount, useReadContract, useWriteContract, useWaitForTransactionReceipt, useBalance } from 'wagmi';
+import { parseEther, formatEther } from 'viem';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import axios from 'axios';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { CONTRACTS } from '@/config/contracts';
 
 interface CryptoData {
   id: string;
@@ -27,13 +29,90 @@ interface ChartDataPoint {
   price: number;
 }
 
+// ERC20 ABI for token operations
+const ERC20_ABI = [
+  {
+    inputs: [{ name: 'spender', type: 'address' }, { name: 'amount', type: 'uint256' }],
+    name: 'approve',
+    outputs: [{ name: '', type: 'bool' }],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [{ name: 'account', type: 'address' }],
+    name: 'balanceOf',
+    outputs: [{ name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+] as const;
+
+// Liquidity Pool ABI for swaps
+const LIQUIDITY_POOL_ABI = [
+  {
+    inputs: [
+      { name: 'buyer', type: 'address' },
+      { name: 'amount', type: 'uint256' },
+      { name: 'paymentToken', type: 'address' }
+    ],
+    name: 'processShoppingPayment',
+    outputs: [{ name: '', type: 'bool' }],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getPoolStats',
+    outputs: [
+      { name: 'mntLiquidity', type: 'uint256' },
+      { name: 'usdcLiquidity', type: 'uint256' },
+      { name: 'lpSupply', type: 'uint256' },
+      { name: 'feesCollected', type: 'uint256' },
+      { name: 'shoppingVolume', type: 'uint256' }
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+] as const;
+
 export default function TradingPage() {
-  const { isConnected } = useAccount();
+  const { address, isConnected } = useAccount();
   const [mounted, setMounted] = useState(false);
   const [cryptos, setCryptos] = useState<CryptoData[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedCrypto, setSelectedCrypto] = useState<CryptoData | null>(null);
   const [chartData, setChartData] = useState<ChartDataPoint[]>([]);
+
+  // Trading state
+  const [tradeAmount, setTradeAmount] = useState('');
+  const [tradeType, setTradeType] = useState<'buy' | 'sell'>('buy');
+  const [showTradeModal, setShowTradeModal] = useState(false);
+
+  // Get MNT and USDC balances
+  const { data: mntBalance } = useBalance({
+    address: address,
+    token: CONTRACTS.MNT,
+  });
+
+  const { data: usdcBalance } = useBalance({
+    address: address,
+    token: CONTRACTS.USDC,
+  });
+
+  // Contract interactions
+  const { writeContract: approveMNT, data: approveMNTHash } = useWriteContract();
+  const { writeContract: approveUSDC, data: approveUSDCHash } = useWriteContract();
+  const { writeContract: executeSwap, data: swapHash } = useWriteContract();
+
+  const { isLoading: isApproving } = useWaitForTransactionReceipt({ hash: approveMNTHash || approveUSDCHash });
+  const { isLoading: isSwapping } = useWaitForTransactionReceipt({ hash: swapHash });
+
+  // Get pool stats
+  const { data: poolStats, refetch: refetchPoolStats } = useReadContract({
+    address: CONTRACTS.LIQUIDITY_POOL,
+    abi: LIQUIDITY_POOL_ABI,
+    functionName: 'getPoolStats',
+  });
 
   // Prevent hydration mismatch
   useEffect(() => {
@@ -101,6 +180,63 @@ export default function TradingPage() {
       fetchChartData(selectedCrypto.id);
     }
   }, [selectedCrypto]);
+
+  // Handle token swap
+  const handleSwap = async () => {
+    if (!tradeAmount || !address) {
+      alert('Please enter an amount');
+      return;
+    }
+
+    try {
+      const amount = parseEther(tradeAmount);
+      const tokenAddress = tradeType === 'buy' ? CONTRACTS.USDC : CONTRACTS.MNT;
+
+      // Step 1: Approve token
+      if (tradeType === 'buy') {
+        approveUSDC({
+          address: CONTRACTS.USDC,
+          abi: ERC20_ABI,
+          functionName: 'approve',
+          args: [CONTRACTS.LIQUIDITY_POOL, amount],
+        });
+      } else {
+        approveMNT({
+          address: CONTRACTS.MNT,
+          abi: ERC20_ABI,
+          functionName: 'approve',
+          args: [CONTRACTS.LIQUIDITY_POOL, amount],
+        });
+      }
+
+      // Step 2: Execute swap (after approval)
+      setTimeout(() => {
+        executeSwap({
+          address: CONTRACTS.LIQUIDITY_POOL,
+          abi: LIQUIDITY_POOL_ABI,
+          functionName: 'processShoppingPayment',
+          args: [address, amount, tokenAddress],
+        });
+      }, 3000);
+
+      setTimeout(() => {
+        alert('Swap completed successfully!');
+        setTradeAmount('');
+        setShowTradeModal(false);
+        refetchPoolStats();
+      }, 6000);
+
+    } catch (error) {
+      console.error('Swap error:', error);
+      alert('Swap failed. Please try again.');
+    }
+  };
+
+  const openTradeModal = (type: 'buy' | 'sell', crypto: CryptoData) => {
+    setTradeType(type);
+    setSelectedCrypto(crypto);
+    setShowTradeModal(true);
+  };
 
   return (
     <>
@@ -234,10 +370,18 @@ export default function TradingPage() {
 
                   {/* Trade Buttons */}
                   <div className="flex gap-4 mt-6">
-                    <button className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold transition-colors">
+                    <button
+                      onClick={() => openTradeModal('buy', selectedCrypto)}
+                      className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold transition-colors disabled:opacity-50"
+                      disabled={!isConnected}
+                    >
                       Buy {selectedCrypto.symbol.toUpperCase()}
                     </button>
-                    <button className="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-semibold transition-colors">
+                    <button
+                      onClick={() => openTradeModal('sell', selectedCrypto)}
+                      className="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-semibold transition-colors disabled:opacity-50"
+                      disabled={!isConnected}
+                    >
                       Sell {selectedCrypto.symbol.toUpperCase()}
                     </button>
                   </div>
@@ -307,7 +451,7 @@ export default function TradingPage() {
                               className="bg-sol-primary hover:bg-sol-primary/80 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
                               onClick={(e) => {
                                 e.stopPropagation();
-                                setSelectedCrypto(crypto);
+                                openTradeModal('buy', crypto);
                               }}
                             >
                               Trade
@@ -319,6 +463,99 @@ export default function TradingPage() {
                   </table>
                 </div>
               </div>
+
+              {/* Trade Modal */}
+              {showTradeModal && selectedCrypto && (
+                <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+                  <div className="glass-card rounded-xl p-8 max-w-md w-full">
+                    <div className="flex justify-between items-center mb-6">
+                      <h2 className="text-2xl font-bold text-white">
+                        {tradeType === 'buy' ? 'Buy' : 'Sell'} {selectedCrypto.symbol.toUpperCase()}
+                      </h2>
+                      <button
+                        onClick={() => setShowTradeModal(false)}
+                        className="text-gray-400 hover:text-white"
+                      >
+                        ✕
+                      </button>
+                    </div>
+
+                    <div className="mb-6">
+                      <div className="flex items-center gap-3 mb-4">
+                        <img src={selectedCrypto.image} alt={selectedCrypto.name} className="h-10 w-10" />
+                        <div>
+                          <p className="text-white font-semibold">{selectedCrypto.name}</p>
+                          <p className="text-gray-400 text-sm">
+                            ${selectedCrypto.current_price.toLocaleString()}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="mb-4">
+                        <label className="block text-gray-300 mb-2">Amount ({tradeType === 'buy' ? 'USDC' : 'MNT'})</label>
+                        <input
+                          type="number"
+                          value={tradeAmount}
+                          onChange={(e) => setTradeAmount(e.target.value)}
+                          placeholder="0.0"
+                          className="w-full bg-gray-800 text-white px-4 py-3 rounded-lg border border-gray-700 focus:border-sol-primary focus:outline-none"
+                        />
+                        <div className="flex justify-between items-center mt-2 text-sm">
+                          <span className="text-gray-400">Balance:</span>
+                          <span className="text-white">
+                            {tradeType === 'buy'
+                              ? `${usdcBalance ? formatEther(usdcBalance.value) : '0'} USDC`
+                              : `${mntBalance ? formatEther(mntBalance.value) : '0'} MNT`}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="bg-gray-800/50 p-4 rounded-lg mb-4">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-gray-400">You {tradeType === 'buy' ? 'pay' : 'receive'}:</span>
+                          <span className="text-white font-semibold">
+                            {tradeAmount || '0'} {tradeType === 'buy' ? 'USDC' : 'MNT'}
+                          </span>
+                        </div>
+                        <div className="flex justify-center my-2">
+                          <ArrowDownUp className="h-5 w-5 text-sol-primary" />
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-gray-400">You {tradeType === 'buy' ? 'receive' : 'pay'}:</span>
+                          <span className="text-white font-semibold">
+                            ~{tradeAmount ? (parseFloat(tradeAmount) * 0.997).toFixed(4) : '0'} {tradeType === 'buy' ? 'MNT' : 'USDC'}
+                          </span>
+                        </div>
+                        <p className="text-xs text-gray-500 mt-2">Fee: 0.3%</p>
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={handleSwap}
+                      disabled={!tradeAmount || isApproving || isSwapping}
+                      className="w-full bg-sol-primary hover:bg-sol-primary/80 text-white py-3 rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    >
+                      {isApproving ? (
+                        <>
+                          <Loader2 className="h-5 w-5 animate-spin" />
+                          Approving...
+                        </>
+                      ) : isSwapping ? (
+                        <>
+                          <Loader2 className="h-5 w-5 animate-spin" />
+                          Swapping...
+                        </>
+                      ) : (
+                        `${tradeType === 'buy' ? 'Buy' : 'Sell'} ${selectedCrypto.symbol.toUpperCase()}`
+                      )}
+                    </button>
+
+                    <p className="text-xs text-gray-400 text-center mt-4">
+                      Swaps are executed through the YieldShop Liquidity Pool
+                    </p>
+                  </div>
+                </div>
+              )}
             </>
           )}
         </div>
