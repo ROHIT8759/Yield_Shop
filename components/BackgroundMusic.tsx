@@ -10,7 +10,7 @@ export default function BackgroundMusic() {
         // Create audio element
         const audio = new Audio('/groovy-vibe-427121.mp3');
         audio.loop = true;
-        audio.volume = 0.03; // Very low volume for background ambiance
+        audio.volume = 0.01; // Very low volume for background ambiance
         audioRef.current = audio;
 
         // Function to start audio
