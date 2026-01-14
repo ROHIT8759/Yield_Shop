@@ -34,7 +34,7 @@ export default function BackgroundMusic() {
         };
 
         // Add minimal interaction listeners
-        const events = ['click', 'touchstart', 'keydown'];
+        const events = ['click', 'touchstart', 'touchend', 'mousedown', 'keydown', 'scroll', 'mousemove'];
         events.forEach(event => {
             document.addEventListener(event, handleInteraction, { once: true });
         });
