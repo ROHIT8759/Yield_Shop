@@ -10,8 +10,7 @@ export default function BackgroundMusic() {
         // Create audio element
         const audio = new Audio('/groovy-vibe-427121.mp3');
         audio.loop = true;
-        audio.volume = 0.05;
-        audio.autoplay = true;
+        audio.volume = 0.03; // Very low volume for background ambiance
         audioRef.current = audio;
 
         // Function to start audio
@@ -21,34 +20,40 @@ export default function BackgroundMusic() {
             try {
                 await audioRef.current.play();
                 hasStartedRef.current = true;
-                console.log('✅ Music is playing!');
-
-                // Remove all listeners after successful start
-                removeAllListeners();
+                console.log('🎵 Music started playing!');
             } catch (error) {
-                // Autoplay failed, keep listeners active
+                console.log('⏸️ Autoplay blocked - will start on first interaction');
             }
         };
 
-        // All possible interaction events
-        const events = ['click', 'touchstart', 'touchend', 'mousedown', 'keydown', 'scroll', 'mousemove'];
-
-        const removeAllListeners = () => {
-            events.forEach(eventName => {
-                document.removeEventListener(eventName, startAudio);
-            });
+        // User interaction handler
+        const handleInteraction = () => {
+            if (!hasStartedRef.current) {
+                startAudio();
+            }
         };
 
-        // Try to play immediately on load
-        startAudio();
-
-        // Add interaction listeners as fallback
-        events.forEach(eventName => {
-            document.addEventListener(eventName, startAudio, { passive: true, capture: true, once: true });
+        // Add minimal interaction listeners
+        const events = ['click', 'touchstart', 'keydown'];
+        events.forEach(event => {
+            document.addEventListener(event, handleInteraction, { once: true });
         });
 
+        // Try to play immediately on mount
+        startAudio();
+
+        // Retry after short delays (some browsers allow after brief moment)
+        const retryTimeout1 = setTimeout(startAudio, 100);
+        const retryTimeout2 = setTimeout(startAudio, 500);
+        const retryTimeout3 = setTimeout(startAudio, 1000);
+
         return () => {
-            removeAllListeners();
+            clearTimeout(retryTimeout1);
+            clearTimeout(retryTimeout2);
+            clearTimeout(retryTimeout3);
+            events.forEach(event => {
+                document.removeEventListener(event, handleInteraction);
+            });
             if (audioRef.current) {
                 audioRef.current.pause();
                 audioRef.current = null;
