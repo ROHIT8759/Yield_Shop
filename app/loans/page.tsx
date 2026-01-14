@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Shield, DollarSign, Star, CheckCircle, Loader2, AlertTriangle, Trophy, Zap, Droplet } from 'lucide-react';
+import { Shield, DollarSign, Star, CheckCircle, Loader2, AlertTriangle, Trophy, Zap, Droplet, TrendingUp } from 'lucide-react';
 import { useAccount, useWriteContract, useWaitForTransactionReceipt, useReadContract } from 'wagmi';
 import { parseEther, formatEther } from 'viem';
 import Navbar from '@/components/Navbar';
@@ -239,17 +239,28 @@ export default function LoansPage() {
     };
 
     return (
-        <div className="min-h-screen bg-black">
+        <div className="min-h-screen bg-black relative overflow-hidden">
+            {/* Background Effects */}
+            <div className="absolute top-0 right-1/4 w-96 h-96 bg-green-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+            <div className="absolute bottom-1/3 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+
             <Navbar />
 
-            <div className="max-w-7xl mx-auto px-4 py-12">
-                {/* Header */}
-                <div className="text-center mb-12">
-                    <h1 className="text-5xl font-bold text-white mb-4">
-                        Decentralized <span className="text-sol-primary">Lending</span>
+            <div className="max-w-7xl mx-auto px-4 py-24 relative z-10">
+                {/* Enhanced Header */}
+                <div className="text-center mb-16">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/10 border border-green-500/20 mb-6">
+                        <Shield className="w-4 h-4 text-green-400" />
+                        <span className="text-sm font-bold text-green-400 tracking-wider uppercase">Lending Protocol</span>
+                    </div>
+                    <h1 className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tight">
+                        Decentralized
+                        <span className="block text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-blue-500 mt-2">
+                            Lending
+                        </span>
                     </h1>
-                    <p className="text-gray-400 text-lg">
-                        Collateral-based loans with on-chain reputation rewards
+                    <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
+                        Collateral-based loans with <span className="text-white font-bold">on-chain reputation rewards</span>
                     </p>
                 </div>
 
@@ -402,59 +413,61 @@ export default function LoansPage() {
 
                             {/* Collateral */}
                             <div className="mb-6">
-                                <label className="block text-gray-400 mb-3 text-sm font-medium">Collateral</label>
-                                <div className="bg-sol-card border border-sol-primary/30 rounded-xl p-4">
+                                <label className="block text-gray-300 mb-3 text-sm font-semibold">Collateral</label>
+                                <div className="bg-gray-900/50 border-2 border-blue-500/30 rounded-xl p-5 hover:border-blue-500/50 transition-colors">
                                     <div className="flex items-center justify-between mb-3">
                                         <select
                                             value={selectedCollateral}
                                             onChange={(e) => setSelectedCollateral(e.target.value)}
-                                            className="bg-sol-dark border border-sol-primary/30 rounded-lg px-4 py-2 text-black"
+                                            className="bg-gray-800 border border-blue-500/30 rounded-lg px-4 py-2 text-white font-medium hover:bg-gray-700 transition-colors cursor-pointer outline-none focus:border-blue-500"
                                         >
-                                            <option>MNT</option>
-                                            <option>USDC</option>
+                                            <option value="MNT">MNT</option>
+                                            <option value="USDC">USDC</option>
                                         </select>
+                                        <span className="text-gray-400 text-sm">Balance: --</span>
                                     </div>
                                     <input
                                         type="number"
                                         placeholder="0.0"
                                         value={collateralAmount}
                                         onChange={(e) => setCollateralAmount(e.target.value)}
-                                        className="bg-transparent text-3xl font-bold text-white outline-none w-full"
+                                        className="bg-transparent text-4xl font-bold text-white outline-none w-full placeholder:text-gray-600"
                                     />
                                 </div>
                             </div>
 
                             {/* Borrow Amount */}
                             <div className="mb-6">
-                                <label className="block text-gray-400 mb-3 text-sm font-medium">Borrow Amount</label>
-                                <div className="bg-sol-card border border-sol-primary/30 rounded-xl p-4">
+                                <label className="block text-gray-300 mb-3 text-sm font-semibold">Borrow Amount</label>
+                                <div className="bg-gray-900/50 border-2 border-purple-500/30 rounded-xl p-5 hover:border-purple-500/50 transition-colors">
                                     <div className="flex items-center justify-between mb-3">
                                         <select
                                             value={selectedBorrow}
                                             onChange={(e) => setSelectedBorrow(e.target.value)}
-                                            className="bg-sol-dark border border-sol-primary/30 rounded-lg px-4 py-2 text-black"
+                                            className="bg-gray-800 border border-purple-500/30 rounded-lg px-4 py-2 text-white font-medium hover:bg-gray-700 transition-colors cursor-pointer outline-none focus:border-purple-500"
                                         >
-                                            <option>USDC</option>
-                                            <option>MNT</option>
+                                            <option value="USDC">USDC</option>
+                                            <option value="MNT">MNT</option>
                                         </select>
+                                        <span className="text-gray-400 text-sm">Max: {collateralAmount ? (parseFloat(collateralAmount) * 0.66).toFixed(2) : '0.00'}</span>
                                     </div>
                                     <input
                                         type="number"
                                         placeholder="0.0"
                                         value={borrowAmount}
                                         onChange={(e) => setBorrowAmount(e.target.value)}
-                                        className="bg-transparent text-3xl font-bold text-white outline-none w-full"
+                                        className="bg-transparent text-4xl font-bold text-white outline-none w-full placeholder:text-gray-600"
                                     />
                                 </div>
                             </div>
 
                             {/* Duration */}
                             <div className="mb-6">
-                                <label className="block text-gray-400 mb-3 text-sm font-medium">Duration (Days)</label>
+                                <label className="block text-gray-300 mb-3 text-sm font-semibold">Duration (Days)</label>
                                 <select
                                     value={duration}
                                     onChange={(e) => setDuration(e.target.value)}
-                                    className="w-full bg-sol-card border border-sol-primary/30 rounded-xl px-4 py-3 text-white"
+                                    className="w-full bg-gray-900/50 border-2 border-cyan-500/30 rounded-xl px-5 py-4 text-white font-medium text-lg hover:border-cyan-500/50 transition-colors cursor-pointer outline-none focus:border-cyan-500"
                                 >
                                     <option value="7">7 Days</option>
                                     <option value="14">14 Days</option>
@@ -493,7 +506,7 @@ export default function LoansPage() {
                                 <button
                                     onClick={handleCreateLoan}
                                     disabled={isCreating || !collateralAmount || !borrowAmount || calculateCollateralRatio() < 150}
-                                    className="w-full bg-sol-primary hover:bg-sol-primary/80 disabled:bg-gray-600 disabled:cursor-not-allowed text-white py-4 rounded-xl font-bold text-lg transition-colors flex items-center justify-center gap-2"
+                                    className="w-full bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-500 hover:to-blue-500 disabled:from-gray-700 disabled:to-gray-600 disabled:cursor-not-allowed text-white py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-green-500/50 disabled:shadow-none"
                                 >
                                     {isCreating ? (
                                         <>
@@ -501,12 +514,15 @@ export default function LoansPage() {
                                             Creating Loan...
                                         </>
                                     ) : (
-                                        <>Borrow Now</>
+                                        <>
+                                            <DollarSign className="h-5 w-5" />
+                                            Borrow Now
+                                        </>
                                     )}
                                 </button>
                             ) : (
-                                <div className="text-center py-4">
-                                    <p className="text-gray-400">Please connect your wallet to borrow</p>
+                                <div className="text-center py-4 bg-yellow-500/10 border border-yellow-500/30 rounded-xl">
+                                    <p className="text-yellow-400 font-medium">Please connect your wallet to borrow</p>
                                 </div>
                             )}
                         </div>

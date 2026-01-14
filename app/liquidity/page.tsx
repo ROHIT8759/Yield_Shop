@@ -108,71 +108,86 @@ export default function LiquidityPoolPage() {
   if (!mounted) return null;
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-green-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+
       <Navbar />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center mb-4">
-            <Droplet className="h-12 w-12 text-blue-500 mr-3" />
-            <h1 className="text-4xl md:text-5xl font-bold text-white">Liquidity Pool</h1>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        {/* Enhanced Header */}
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
+            <Droplet className="w-4 h-4 text-blue-400" />
+            <span className="text-sm font-bold text-blue-400 tracking-wider uppercase">Liquidity Provision</span>
           </div>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Provide liquidity and earn 0.3% fees from every shopping transaction
+          <h1 className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tight">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400">
+              Liquidity
+            </span> Pool
+          </h1>
+          <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
+            Provide liquidity and earn <span className="text-white font-bold">0.3% fees</span> from every shopping transaction
           </p>
         </div>
 
-        {/* Demo Badge */}
-        <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-xl mb-8">
+        {/* Demo Badge with Enhanced Design */}
+        <div className="glass-card-premium p-5 rounded-xl mb-10 max-w-2xl mx-auto">
           <div className="flex items-center justify-center gap-3">
-            <CheckCircle className="h-5 w-5 text-blue-500" />
-            <span className="text-gray-300 font-semibold">Demo Mode - Realistic Simulation</span>
-            <CheckCircle className="h-5 w-5 text-blue-500" />
+            <CheckCircle className="h-6 w-6 text-green-400" />
+            <span className="text-white font-bold text-lg"> Realistic Simulation</span>
+            <CheckCircle className="h-6 w-6 text-green-400" />
           </div>
         </div>
 
         {!mounted || !isConnected ? (
-          <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-2xl text-center max-w-md mx-auto">
-            <Wallet className="h-16 w-16 text-blue-500 mx-auto mb-4" />
-            <h3 className="text-xl font-bold text-white mb-2">Connect Your Wallet</h3>
-            <p className="text-gray-500">Connect to provide liquidity and earn rewards</p>
+          <div className="glass-card-premium rounded-2xl p-16 text-center max-w-2xl mx-auto">
+            <Wallet className="h-20 w-20 text-blue-400 mx-auto mb-6" />
+            <h3 className="text-3xl font-black text-white mb-3">Connect Your Wallet</h3>
+            <p className="text-zinc-400 text-lg">Connect to provide liquidity and start earning rewards</p>
           </div>
         ) : (
           <div className="space-y-8">
-            {/* Pool Statistics */}
+            {/* Pool Statistics with Enhanced Design */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-zinc-900 border border-zinc-800 p-6 rounded-xl hover:border-blue-500/50 hover:scale-105 transition-all">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-gray-400 text-sm">Total MNT Liquidity</span>
-                  <DollarSign className="h-5 w-5 text-blue-500" />
+              <div className="stats-card group">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-zinc-400 text-sm font-semibold uppercase tracking-wider">MNT Liquidity</span>
+                  <div className="p-2 rounded-lg bg-blue-500/10 group-hover:bg-blue-500/20 transition-colors">
+                    <DollarSign className="h-5 w-5 text-blue-400" />
+                  </div>
                 </div>
-                <div className="text-2xl font-bold text-white">
+                <div className="text-3xl font-black text-white mb-1">
                   {poolStats.totalMNT.toLocaleString()} MNT
                 </div>
-                <div className="text-xs text-gray-600 mt-1">≈ ${(poolStats.totalMNT * 0.65).toLocaleString()}</div>
+                <div className="text-sm text-zinc-500">≈ ${(poolStats.totalMNT * 0.65).toLocaleString()}</div>
               </div>
 
-              <div className="bg-zinc-900 border border-zinc-800 p-6 rounded-xl hover:border-green-500/50 hover:scale-105 transition-all">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-gray-400 text-sm">Total USDC Liquidity</span>
-                  <DollarSign className="h-5 w-5 text-green-500" />
+              <div className="stats-card group">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-zinc-400 text-sm font-semibold uppercase tracking-wider">USDC Liquidity</span>
+                  <div className="p-2 rounded-lg bg-green-500/10 group-hover:bg-green-500/20 transition-colors">
+                    <DollarSign className="h-5 w-5 text-green-400" />
+                  </div>
                 </div>
-                <div className="text-2xl font-bold text-white">
+                <div className="text-3xl font-black text-white mb-1">
                   {poolStats.totalUSDC.toLocaleString()} USDC
                 </div>
-                <div className="text-xs text-gray-600 mt-1">≈ ${poolStats.totalUSDC.toLocaleString()}</div>
+                <div className="text-sm text-zinc-500">≈ ${poolStats.totalUSDC.toLocaleString()}</div>
               </div>
 
-              <div className="bg-zinc-900 border border-zinc-800 p-6 rounded-xl hover:border-blue-500/50 hover:scale-105 transition-all">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-gray-400 text-sm">Fees Collected</span>
-                  <TrendingUp className="h-5 w-5 text-blue-500" />
+              <div className="stats-card group">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-zinc-400 text-sm font-semibold uppercase tracking-wider">Fees Collected</span>
+                  <div className="p-2 rounded-lg bg-purple-500/10 group-hover:bg-purple-500/20 transition-colors">
+                    <TrendingUp className="h-5 w-5 text-purple-400" />
+                  </div>
                 </div>
-                <div className="text-2xl font-bold text-white">
+                <div className="text-3xl font-black text-white mb-1">
                   ${poolStats.feesCollected.toLocaleString()}
                 </div>
-                <div className="text-xs text-gray-600 mt-1">From ${poolStats.shoppingVolume.toLocaleString()} volume</div>
+                <div className="text-sm text-zinc-500">From ${poolStats.shoppingVolume.toLocaleString()} volume</div>
               </div>
             </div>
 

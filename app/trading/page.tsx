@@ -241,35 +241,47 @@ export default function TradingPage() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-black pt-24 pb-16 px-4">
-        <div className="max-w-7xl mx-auto">
-          {/* Header */}
-          <div className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-2 text-glow">
-                Crypto Trading
-              </h1>
-              <p className="text-gray-400">Live prices and charts for top cryptocurrencies</p>
+      <div className="min-h-screen bg-black pt-24 pb-16 px-4 relative overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div className="absolute bottom-1/3 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          {/* Enhanced Header */}
+          <div className="mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 mb-6">
+              <Activity className="w-4 h-4 text-cyan-400" />
+              <span className="text-sm font-bold text-cyan-400 tracking-wider uppercase">Live Markets</span>
             </div>
-            <button
-              onClick={fetchCryptoData}
-              className="bg-sol-primary hover:bg-sol-primary/80 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center gap-2"
-            >
-              <RefreshCw className="h-5 w-5" />
-              Refresh Prices
-            </button>
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
+              <div>
+                <h1 className="text-5xl md:text-6xl font-black text-white mb-4 tracking-tight">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+                    Crypto
+                  </span> Trading
+                </h1>
+                <p className="text-xl text-zinc-400">Live prices and charts for top cryptocurrencies</p>
+              </div>
+              <button
+                onClick={fetchCryptoData}
+                className="btn-primary flex items-center gap-2"
+              >
+                <RefreshCw className="h-5 w-5" />
+                Refresh Prices
+              </button>
+            </div>
           </div>
 
           {!mounted || !isConnected ? (
-            <div className="glass-card rounded-xl p-12 text-center">
-              <Activity className="h-16 w-16 text-sol-primary mx-auto mb-4" />
-              <h2 className="text-2xl font-bold text-white mb-2">Connect Your Wallet</h2>
-              <p className="text-gray-400">Connect your wallet to start trading cryptocurrencies</p>
+            <div className="glass-card-premium rounded-2xl p-16 text-center">
+              <Activity className="h-20 w-20 text-blue-400 mx-auto mb-6" />
+              <h2 className="text-3xl font-black text-white mb-3">Connect Your Wallet</h2>
+              <p className="text-zinc-400 text-lg">Connect your wallet to access live trading features</p>
             </div>
           ) : loading ? (
-            <div className="glass-card rounded-xl p-12 text-center">
-              <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-sol-primary mx-auto"></div>
-              <p className="text-gray-400 mt-4">Loading market data...</p>
+            <div className="glass-card-premium rounded-2xl p-16 text-center">
+              <Loader2 className="h-16 w-16 text-blue-400 mx-auto mb-4 animate-spin" />
+              <p className="text-zinc-400 text-lg">Loading market data...</p>
             </div>
           ) : (
             <>

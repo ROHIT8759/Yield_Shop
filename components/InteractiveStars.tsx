@@ -76,7 +76,7 @@ export default function InteractiveStars() {
                             y: Math.random() * canvas.height,
                             originX: pX,
                             originY: pY,
-                            color: 'white',
+                            color: 'rgba(255, 255, 255, 0.15)',
                             size: Math.random() * 2 + 1,
                             vx: 0,
                             vy: 0,
@@ -91,7 +91,7 @@ export default function InteractiveStars() {
             }
 
             // 3. Add random background stars
-            const bgStarCount = Math.floor((canvas.width * canvas.height) / 5000);
+            const bgStarCount = Math.floor((canvas.width * canvas.height) / 1000);
             for (let i = 0; i < bgStarCount; i++) {
                 particles.push({
                     x: Math.random() * canvas.width,
@@ -182,7 +182,7 @@ export default function InteractiveStars() {
                 // Actually, for background stars, let's just let them drift and wrap.
 
                 // Hack: Use `color` to distinguish 'white' (text) vs 'rgba...' (bg)
-                if (p.color === 'white') {
+                if (p.color.startsWith('rgba(255, 255, 255, 0.15)')) {
                     // Text Particle
                     p.vx += homeDx * p.ease;
                     p.vy += homeDy * p.ease;

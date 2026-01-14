@@ -1,0 +1,3 @@
+await ShopToken.grantRole(MINTER_ROLE, "0xe1455569427b86082aFBDD21e431Bd60E21a5760");
+const MINTER_ROLE = await ShopToken.MINTER_ROLE();
+const ShopToken = await ethers.getContractAt("ShopToken", "0xEDCB9F6E4FAa941b97EdDE1A7C760308e37c522c");
