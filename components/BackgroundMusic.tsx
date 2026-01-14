@@ -1,28 +1,46 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { Volume2, VolumeX } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 
 export default function BackgroundMusic() {
     const audioRef = useRef<HTMLAudioElement | null>(null);
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [hasInteracted, setHasInteracted] = useState(false);
 
     useEffect(() => {
         // Create audio element
         audioRef.current = new Audio('/groovy-vibe-427121.mp3');
-        audioRef.current.loop = true;
-        audioRef.current.volume = 0.3; // Set volume to 30%
+        audioRef.current.loop = true; // Auto-restart when finished
+        audioRef.current.volume = 0.05; // Set volume to 5%
+        audioRef.current.autoplay = true; // Enable autoplay attribute
 
-        // Attempt to play automatically (might be blocked by browser policy)
+        // Add event listener to ensure restart if loop fails
+        const handleEnded = () => {
+            if (audioRef.current) {
+                audioRef.current.currentTime = 0;
+                audioRef.current.play().catch(() => console.log('Restart failed'));
+            }
+        };
+
+        audioRef.current.addEventListener('ended', handleEnded);
+
+        // Attempt to play automatically on page load
         const playAudio = async () => {
             try {
                 if (audioRef.current) {
                     await audioRef.current.play();
-                    setIsPlaying(true);
                 }
-            } catch {
-                console.log('Autoplay blocked, waiting for user interaction');
+            } catch (error) {
+                console.log('Autoplay blocked by browser, waiting for user interaction');
+                // Try to play on any user interaction
+                const startOnInteraction = () => {
+                    if (audioRef.current) {
+                        audioRef.current.play()
+                            .catch(() => console.log('Failed to start music'));
+                    }
+                };
+
+                document.addEventListener('click', startOnInteraction, { once: true });
+                document.addEventListener('keydown', startOnInteraction, { once: true });
+                document.addEventListener('touchstart', startOnInteraction, { once: true });
             }
         };
 
@@ -30,44 +48,12 @@ export default function BackgroundMusic() {
 
         return () => {
             if (audioRef.current) {
+                audioRef.current.removeEventListener('ended', handleEnded);
                 audioRef.current.pause();
                 audioRef.current = null;
             }
         };
     }, []);
 
-    const togglePlay = () => {
-        if (!audioRef.current) return;
-
-        if (isPlaying) {
-            audioRef.current.pause();
-        } else {
-            audioRef.current.play();
-        }
-        setIsPlaying(!isPlaying);
-        setHasInteracted(true);
-    };
-
-    return (
-        <div className="fixed bottom-4 right-4 z-50">
-            <button
-                onClick={togglePlay}
-                className="bg-sol-card/80 backdrop-blur-md border border-sol-primary/30 p-3 rounded-full text-sol-primary hover:bg-sol-primary hover:text-white transition-all duration-300 shadow-lg group"
-                title={isPlaying ? "Pause Music" : "Play Music"}
-            >
-                {isPlaying ? (
-                    <Volume2 className="h-6 w-6 animate-pulse" />
-                ) : (
-                    <VolumeX className="h-6 w-6" />
-                )}
-
-                {/* Tooltip for first-time users if autoplay was blocked */}
-                {!hasInteracted && !isPlaying && (
-                    <span className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-sol-primary text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
-                        Click to play music
-                    </span>
-                )}
-            </button>
-        </div>
-    );
+    return null; // No UI, just background music
 }
