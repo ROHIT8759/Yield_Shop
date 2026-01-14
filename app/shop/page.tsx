@@ -151,6 +151,9 @@ export default function ShopPage() {
     const [userOrders, setUserOrders] = useState<OrderData[]>([]);
     const [isLoadingOrders, setIsLoadingOrders] = useState(false);
     const [isPlacingOrder, setIsPlacingOrder] = useState(false);
+    const [showTxModal, setShowTxModal] = useState(false);
+    const [txStatus, setTxStatus] = useState<'pending' | 'confirming' | 'success' | 'error'>('pending');
+    const [txHash, setTxHash] = useState<string>('');
 
     // Pool balance state
     const [poolBalance, setPoolBalance] = useState<PoolBalance | null>(null);
@@ -213,6 +216,27 @@ export default function ShopPage() {
     const { isLoading: isPurchaseConfirming, isSuccess: isPurchaseSuccess } = useWaitForTransactionReceipt({
         hash: purchaseHash,
     });
+
+    // Watch for transaction status changes
+    useEffect(() => {
+        if (purchaseHash && showTxModal) {
+            setTxHash(purchaseHash);
+            setTxStatus('confirming');
+        }
+    }, [purchaseHash]);
+
+    useEffect(() => {
+        if (isPurchaseSuccess && showTxModal) {
+            setTxStatus('success');
+            setTimeout(() => {
+                setShowTxModal(false);
+                setShowCheckoutModal(false);
+                setSelectedProduct(null);
+                loadUserOrders();
+                loadPoolBalance();
+            }, 3000);
+        }
+    }, [isPurchaseSuccess]);
 
     // List coupon
     const {
@@ -363,6 +387,10 @@ export default function ShopPage() {
                 const platformFee = totalAmount * PLATFORM_FEE_RATE;
                 const blockchainAmount = totalAmount + platformFee;
 
+                // Show transaction modal
+                setShowTxModal(true);
+                setTxStatus('pending');
+
                 recordPurchase({
                     address: CONTRACTS.YIELDSHOP,
                     abi: YIELDSHOP_ABI,
@@ -373,17 +401,17 @@ export default function ShopPage() {
                 console.log('Blockchain transaction submitted');
             } catch (blockchainError: any) {
                 console.warn('Blockchain recording failed (order still placed):', blockchainError);
+                setTxStatus('error');
+                setTimeout(() => {
+                    setShowTxModal(false);
+                    alert(`Order placed! Order ID: ${orderId}\nYou'll earn $${cashbackEarned.toFixed(2)} in cashback!`);
+                    setShowCheckoutModal(false);
+                    setSelectedProduct(null);
+                    loadUserOrders();
+                    loadPoolBalance();
+                }, 2000);
                 // Order is still valid even if blockchain fails
             }
-
-            alert(`Order placed successfully! Order ID: ${orderId}\nYou'll earn $${cashbackEarned.toFixed(2)} in cashback!\n\nPool Balance Updated: $${(currentPool.available_balance - totalAmount).toFixed(2)} remaining`);
-
-            setShowCheckoutModal(false);
-            setSelectedProduct(null);
-
-            // Refresh orders and pool balance
-            loadUserOrders();
-            loadPoolBalance();
 
         } catch (error) {
             console.error('Failed to place order:', error);
@@ -1300,6 +1328,87 @@ export default function ShopPage() {
                                 </p>
                             </div>
                         </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Transaction Status Modal */}
+            {showTxModal && (
+                <div className="fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center z-[60] p-4">
+                    <div className="glass-card-premium max-w-md w-full rounded-2xl p-8 text-center">
+                        {txStatus === 'pending' && (
+                            <>
+                                <div className="relative">
+                                    <div className="w-24 h-24 mx-auto mb-6 relative">
+                                        <Loader2 className="h-24 w-24 text-blue-400 animate-spin" />
+                                    </div>
+                                </div>
+                                <h3 className="text-2xl font-black text-white mb-3">Processing Transaction</h3>
+                                <p className="text-zinc-400 mb-4">Please confirm the transaction in your wallet...</p>
+                            </>
+                        )}
+
+                        {txStatus === 'confirming' && (
+                            <>
+                                <div className="relative">
+                                    <div className="w-24 h-24 mx-auto mb-6 relative">
+                                        <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-blue-500 rounded-full animate-pulse opacity-20"></div>
+                                        <Loader2 className="h-24 w-24 text-green-400 animate-spin relative z-10" />
+                                    </div>
+                                </div>
+                                <h3 className="text-2xl font-black text-white mb-3">Confirming on Blockchain</h3>
+                                <p className="text-zinc-400 mb-4">Your transaction is being confirmed...</p>
+                                {txHash && (
+                                    <a
+                                        href={`https://sepolia.mantlescan.xyz/tx/${txHash}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-sm text-blue-400 hover:text-blue-300 underline"
+                                    >
+                                        View on Explorer →
+                                    </a>
+                                )}
+                            </>
+                        )}
+
+                        {txStatus === 'success' && (
+                            <>
+                                <div className="relative">
+                                    <div className="w-24 h-24 mx-auto mb-6 relative">
+                                        <div className="absolute inset-0 bg-green-500/20 rounded-full animate-ping"></div>
+                                        <CheckCircle className="h-24 w-24 text-green-400 relative z-10" />
+                                    </div>
+                                </div>
+                                <h3 className="text-2xl font-black text-white mb-3">Order Placed Successfully! 🎉</h3>
+                                <p className="text-zinc-400 mb-4">Your cashback and SHOP tokens have been recorded on the blockchain!</p>
+                                {txHash && (
+                                    <a
+                                        href={`https://sepolia.mantlescan.xyz/tx/${txHash}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-sm text-green-400 hover:text-green-300 underline"
+                                    >
+                                        View Transaction →
+                                    </a>
+                                )}
+                            </>
+                        )}
+
+                        {txStatus === 'error' && (
+                            <>
+                                <div className="w-24 h-24 mx-auto mb-6">
+                                    <X className="h-24 w-24 text-red-400" />
+                                </div>
+                                <h3 className="text-2xl font-black text-white mb-3">Transaction Failed</h3>
+                                <p className="text-zinc-400 mb-4">Don't worry - your order was still placed successfully!</p>
+                                <button
+                                    onClick={() => setShowTxModal(false)}
+                                    className="btn-primary mt-4"
+                                >
+                                    Close
+                                </button>
+                            </>
+                        )}
                     </div>
                 </div>
             )}
