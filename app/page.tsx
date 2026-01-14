@@ -10,7 +10,6 @@ import MouseEffect from '../components/MouseEffect';
 import FAQ from '../components/FAQ';
 import UserStats from '../components/UserStats';
 import InteractiveStars from '../components/InteractiveStars';
-import BackgroundMusic from '../components/BackgroundMusic';
 import { getPoolBalance, getPoolStats } from '@/lib/supabase';
 
 export default function Home() {
@@ -142,9 +141,6 @@ export default function Home() {
         <FAQ />
       </main>
       <Footer />
-
-      {/* Background Music Player */}
-      <BackgroundMusic />
     </div>
   );
 }

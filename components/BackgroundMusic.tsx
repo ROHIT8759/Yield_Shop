@@ -4,56 +4,57 @@ import { useEffect, useRef } from 'react';
 
 export default function BackgroundMusic() {
     const audioRef = useRef<HTMLAudioElement | null>(null);
+    const hasStartedRef = useRef(false);
 
     useEffect(() => {
         // Create audio element
-        audioRef.current = new Audio('/groovy-vibe-427121.mp3');
-        audioRef.current.loop = true; // Auto-restart when finished
-        audioRef.current.volume = 0.05; // Set volume to 5%
-        audioRef.current.autoplay = true; // Enable autoplay attribute
+        const audio = new Audio('/groovy-vibe-427121.mp3');
+        audio.loop = true;
+        audio.volume = 0.05;
+        audio.autoplay = true;
+        audioRef.current = audio;
 
-        // Add event listener to ensure restart if loop fails
-        const handleEnded = () => {
-            if (audioRef.current) {
-                audioRef.current.currentTime = 0;
-                audioRef.current.play().catch(() => console.log('Restart failed'));
-            }
-        };
+        // Function to start audio
+        const startAudio = async () => {
+            if (hasStartedRef.current || !audioRef.current) return;
 
-        audioRef.current.addEventListener('ended', handleEnded);
-
-        // Attempt to play automatically on page load
-        const playAudio = async () => {
             try {
-                if (audioRef.current) {
-                    await audioRef.current.play();
-                }
-            } catch (error) {
-                console.log('Autoplay blocked by browser, waiting for user interaction');
-                // Try to play on any user interaction
-                const startOnInteraction = () => {
-                    if (audioRef.current) {
-                        audioRef.current.play()
-                            .catch(() => console.log('Failed to start music'));
-                    }
-                };
+                await audioRef.current.play();
+                hasStartedRef.current = true;
+                console.log('✅ Music is playing!');
 
-                document.addEventListener('click', startOnInteraction, { once: true });
-                document.addEventListener('keydown', startOnInteraction, { once: true });
-                document.addEventListener('touchstart', startOnInteraction, { once: true });
+                // Remove all listeners after successful start
+                removeAllListeners();
+            } catch (error) {
+                // Autoplay failed, keep listeners active
             }
         };
 
-        playAudio();
+        // All possible interaction events
+        const events = ['click', 'touchstart', 'touchend', 'mousedown', 'keydown', 'scroll', 'mousemove'];
+
+        const removeAllListeners = () => {
+            events.forEach(eventName => {
+                document.removeEventListener(eventName, startAudio);
+            });
+        };
+
+        // Try to play immediately on load
+        startAudio();
+
+        // Add interaction listeners as fallback
+        events.forEach(eventName => {
+            document.addEventListener(eventName, startAudio, { passive: true, capture: true, once: true });
+        });
 
         return () => {
+            removeAllListeners();
             if (audioRef.current) {
-                audioRef.current.removeEventListener('ended', handleEnded);
                 audioRef.current.pause();
                 audioRef.current = null;
             }
         };
     }, []);
 
-    return null; // No UI, just background music
+    return null;
 }
