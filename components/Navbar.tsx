@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ShoppingBag, Wallet, Menu, X, User, Copy, Check, DollarSign, Ticket, Shield } from 'lucide-react';
@@ -16,10 +16,28 @@ export default function Navbar() {
     const [userMenuOpen, setUserMenuOpen] = useState(false);
     const [copiedShort, setCopiedShort] = useState(false);
     const [copiedFull, setCopiedFull] = useState(false);
+    const userMenuRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         setMounted(true);
     }, []);
+
+    // Close user menu when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+                setUserMenuOpen(false);
+            }
+        };
+
+        if (userMenuOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [userMenuOpen]);
 
     const handleConnect = async () => {
         try {
@@ -110,7 +128,7 @@ export default function Navbar() {
                                         {address?.slice(0, 6)}...{address?.slice(-4)}
                                     </span>
                                 </div>
-                                <div className="relative">
+                                <div className="relative" ref={userMenuRef}>
                                     <button
                                         onClick={() => setUserMenuOpen(!userMenuOpen)}
                                         className="bg-zinc-900/50 hover:bg-zinc-800/50 p-2.5 rounded-xl transition-all duration-300 border border-zinc-800 hover:border-zinc-700"

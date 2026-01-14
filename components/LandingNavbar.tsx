@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ShoppingBag, Wallet, User, Copy, Check, DollarSign, Ticket, Shield } from 'lucide-react';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function LandingNavbar() {
     const pathname = usePathname();
@@ -16,6 +16,7 @@ export default function LandingNavbar() {
     const [copiedShort, setCopiedShort] = useState(false);
     const [copiedFull, setCopiedFull] = useState(false);
     const [activeSection, setActiveSection] = useState('');
+    const userMenuRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         setMounted(true);
@@ -31,6 +32,23 @@ export default function LandingNavbar() {
         window.addEventListener('hashchange', handleHashChange);
         return () => window.removeEventListener('hashchange', handleHashChange);
     }, []);
+
+    // Close user menu when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+                setUserMenuOpen(false);
+            }
+        };
+
+        if (userMenuOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [userMenuOpen]);
 
     const handleConnect = async () => {
         try {
@@ -126,7 +144,7 @@ export default function LandingNavbar() {
                                         {address?.slice(0, 6)}...{address?.slice(-4)}
                                     </span>
                                 </div>
-                                <div className="relative">
+                                <div className="relative" ref={userMenuRef}>
                                     <button
                                         onClick={() => setUserMenuOpen(!userMenuOpen)}
                                         className="bg-zinc-900/50 hover:bg-zinc-800/50 p-2.5 rounded-xl transition-all duration-300 border border-zinc-800 hover:border-zinc-700"

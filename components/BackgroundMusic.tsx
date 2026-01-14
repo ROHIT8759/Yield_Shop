@@ -10,7 +10,7 @@ export default function BackgroundMusic() {
 
     useEffect(() => {
         // Create audio element
-        audioRef.current = new Audio('/background-music.mp3');
+        audioRef.current = new Audio('/groovy-vibe-427121.mp3');
         audioRef.current.loop = true;
         audioRef.current.volume = 0.3; // Set volume to 30%
 
