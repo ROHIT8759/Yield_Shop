@@ -878,11 +878,11 @@ export default function ShopPage() {
 
             {/* Purchase Confirmation Modal */}
             {selectedProduct && (
-                <div 
+                <div
                     className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
                     onClick={() => setSelectedProduct(null)}
                 >
-                    <div 
+                    <div
                         className="glass-card rounded-2xl p-6 md:p-8 max-w-md w-full max-h-[90vh] overflow-y-auto"
                         onClick={(e) => e.stopPropagation()}
                     >
@@ -1122,11 +1122,11 @@ export default function ShopPage() {
 
             {/* Checkout Modal */}
             {showCheckoutModal && selectedProduct && (
-                <div 
+                <div
                     className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4"
                     onClick={() => setShowCheckoutModal(false)}
                 >
-                    <div 
+                    <div
                         className="glass-card-premium max-w-4xl w-full max-h-[90vh] overflow-y-auto rounded-2xl"
                         onClick={(e) => e.stopPropagation()}
                     >
