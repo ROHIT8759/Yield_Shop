@@ -878,8 +878,14 @@ export default function ShopPage() {
 
             {/* Purchase Confirmation Modal */}
             {selectedProduct && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-                    <div className="glass-card rounded-2xl p-6 md:p-8 max-w-md w-full max-h-[90vh] overflow-y-auto">
+                <div 
+                    className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+                    onClick={() => setSelectedProduct(null)}
+                >
+                    <div 
+                        className="glass-card rounded-2xl p-6 md:p-8 max-w-md w-full max-h-[90vh] overflow-y-auto"
+                        onClick={(e) => e.stopPropagation()}
+                    >
                         {isPurchaseSuccess ? (
                             <div className="text-center">
                                 <div className="bg-green-500/20 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
@@ -1116,8 +1122,14 @@ export default function ShopPage() {
 
             {/* Checkout Modal */}
             {showCheckoutModal && selectedProduct && (
-                <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-                    <div className="glass-card-premium max-w-4xl w-full max-h-[90vh] overflow-y-auto rounded-2xl">
+                <div 
+                    className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+                    onClick={() => setShowCheckoutModal(false)}
+                >
+                    <div 
+                        className="glass-card-premium max-w-4xl w-full max-h-[90vh] overflow-y-auto rounded-2xl"
+                        onClick={(e) => e.stopPropagation()}
+                    >
                         <div className="p-6 md:p-8">
                             {/* Header */}
                             <div className="flex items-center justify-between mb-6 pb-6 border-b border-zinc-800">
